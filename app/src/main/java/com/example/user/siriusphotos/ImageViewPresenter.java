@@ -1,6 +1,5 @@
 package com.example.user.siriusphotos;
 
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.arellomobile.mvp.InjectViewState;
@@ -21,9 +20,9 @@ public class ImageViewPresenter extends MvpPresenter<IImageView> {
     }
 
     void selectImageFromGallery() {
-        mainPresenter.selectImageFromGalery(new MainPresenter.OnCallBackGalleryMainPresenter() {
+        mainPresenter.selectImageFromGalery(new MainPresenter.OnCallBack() {
             @Override
-            public void onCallBackGallery(File file) {
+            public void onCallBack(File file) {
                 getViewState().setImage(BitmapFactory.decodeFile(file.getAbsolutePath()));
             }
         });

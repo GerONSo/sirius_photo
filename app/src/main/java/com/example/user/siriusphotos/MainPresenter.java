@@ -9,16 +9,24 @@ import java.io.File;
  */
 
 public class MainPresenter extends MvpPresenter<IMainView> {
-    interface OnCallBackGalleryMainPresenter{
-        void onCallBackGallery(File file);
+    interface OnCallBack {
+        void onCallBack(File file);
     }
-    void selectImageFromGalery(final OnCallBackGalleryMainPresenter callBack) {
+    void selectImageFromGalery(final OnCallBack callBack) {
         getViewState().getImageFromGallery(new IMainView.OnCallBack() {
             @Override
             public void onCallback(File file) {
-                callBack.onCallBackGallery(file);
+                callBack.onCallBack(file);
             }
         });
 
+    }
+    void selectIageFromCamera(final OnCallBack callBack){
+        getViewState().getImageFromCamera(new IMainView.OnCallBack() {
+            @Override
+            public void onCallback(File file) {
+                callBack.onCallBack(file);
+            }
+        });
     }
 }
