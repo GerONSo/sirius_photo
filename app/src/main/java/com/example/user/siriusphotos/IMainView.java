@@ -12,10 +12,13 @@ import java.io.File;
  */
 
 public interface IMainView extends MvpView {
+    interface OnCallBack {
+        void onCallback(File file);
+    }
     @StateStrategyType(SkipStrategy.class)
-    File getImageFromGallery();
+    void getImageFromGallery(OnCallBack callback);
     @StateStrategyType(SkipStrategy.class)
-    File getImageFromCamera();
+    void getImageFromCamera(OnCallBack callback);
     @StateStrategyType(SingleStateStrategy.class)
     void startLoadView();
     @StateStrategyType(SingleStateStrategy.class)
