@@ -7,9 +7,6 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import java.io.File;
 
-/**
- * Created by shana on 17-Jan-18.
- */
 
 @InjectViewState
 public class ImageViewPresenter extends MvpPresenter<IImageView> {
@@ -20,15 +17,6 @@ public class ImageViewPresenter extends MvpPresenter<IImageView> {
     }
 
     void selectImageFromGallery() {
-        mainPresenter.selectImageFromGalery(new MainPresenter.OnCallBack() {
-            @Override
-            public void onCallBack(File file) {
-                getViewState().setImage(BitmapFactory.decodeFile(file.getAbsolutePath()));
-            }
-        });
-    }
 
-    void setImage(File file) {
-        getViewState().setImage(BitmapFactory.decodeFile(file.getAbsolutePath()));
     }
 }

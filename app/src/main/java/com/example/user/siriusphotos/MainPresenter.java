@@ -1,32 +1,37 @@
 package com.example.user.siriusphotos;
 
+import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import java.io.File;
 
-/**
- * Created by shana on 17-Jan-18.
- */
-
+@InjectViewState
 public class MainPresenter extends MvpPresenter<IMainView> {
-    interface OnCallBack {
-        void onCallBack(File file);
+
+    public interface ImageReceiver {
+        void acceptImage(File file);
     }
-    void selectImageFromGalery(final OnCallBack callBack) {
-        getViewState().getImageFromGallery(new IMainView.OnCallBack() {
-            @Override
-            public void onCallback(File file) {
-                callBack.onCallBack(file);
-            }
-        });
+
+    private ImageReceiver callback;
+    private File file;
+
+    void selectImageFromGalery(ImageReceiver callback) {
+        this.callback = callback;
 
     }
-    void selectIageFromCamera(final OnCallBack callBack){
-        getViewState().getImageFromCamera(new IMainView.OnCallBack() {
-            @Override
-            public void onCallback(File file) {
-                callBack.onCallBack(file);
-            }
-        });
+    void selectImageFromCamera(ImageReceiver callback) {
+        this.callback = callback;
+        file = getTempPhotoFile();
+        getViewState().requestImageFromCamera(file);
+    }
+
+    void onImageReadyFromCamera() {
+        callback.acceptImage(file);
+    }
+
+    private File getTempPhotoFile() {
+        File dir = null;
+        getViewState().getTempFilesDir(dir);
+        return FileUtils.getNewImageFile(dir, "tmp_", ".jpg");
     }
 }
