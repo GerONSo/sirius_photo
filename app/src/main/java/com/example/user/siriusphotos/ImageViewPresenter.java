@@ -16,6 +16,10 @@ public class ImageViewPresenter extends MvpPresenter<IImageView> {
         this.mainPresenter = mainPresenter;
     }
 
+    public void setImg(File file){
+        getViewState().setImage(BitmapFactory.decodeFile(file.getAbsolutePath()));
+    }
+
     void selectImageFromGallery() {
 
     }
