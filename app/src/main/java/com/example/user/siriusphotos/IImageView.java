@@ -10,7 +10,7 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
  * Created by user on 17.01.2018.
  */
 
-public interface InterfaceImageView extends MvpView {
+public interface IImageView extends MvpView {
     @StateStrategyType(SingleStateStrategy.class)
     void setImage(Bitmap img);
 }
