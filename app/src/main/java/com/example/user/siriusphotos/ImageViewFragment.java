@@ -1,13 +1,10 @@
 package com.example.user.siriusphotos;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +32,8 @@ public class ImageViewFragment extends MvpAppCompatFragment implements IImageVie
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
 
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,5 +48,13 @@ public class ImageViewFragment extends MvpAppCompatFragment implements IImageVie
         Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.elbi);
         Log.d("mylog",bitmap.toString());
         imageView.setImageBitmap(bitmap);
+    }
+    public void setListnerButton(){
+        photoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.selectImageFromCamera();
+            }
+        });
     }
 }

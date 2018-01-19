@@ -1,19 +1,22 @@
 package com.example.user.siriusphotos;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class RecyclerViewFragment extends Fragment {
+import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.arellomobile.mvp.presenter.InjectPresenter;
+
+public class RecyclerViewFragment extends MvpAppCompatFragment implements IRecyclerView{
+
+    @InjectPresenter
+    RecyclerViewPresenter presenter;
 
     private RecyclerView listView;
     public RecyclerViewFragment() {
@@ -50,5 +53,10 @@ public class RecyclerViewFragment extends Fragment {
     }
     private Bitmap takeBitmap(int id){
         return BitmapFactory.decodeResource(getResources(),id);
+    }
+
+    @Override
+    public void insertImg(Bitmap img) {
+
     }
 }

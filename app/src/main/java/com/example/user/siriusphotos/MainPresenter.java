@@ -8,6 +8,9 @@ import java.io.File;
 @InjectViewState
 public class MainPresenter extends MvpPresenter<IMainView> {
 
+
+
+
     public interface ImageReceiver {
         void acceptImage(File file);
     }

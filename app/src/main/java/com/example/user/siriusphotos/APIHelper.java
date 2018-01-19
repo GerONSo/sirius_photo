@@ -1,6 +1,5 @@
 package com.example.user.siriusphotos;
 
-import android.net.Uri;
 import android.util.Log;
 
 import java.io.File;
@@ -98,7 +97,6 @@ public class APIHelper {
             return;
         }
 
-        //"/storage/0766-1657/VK/0DUEb3adwRA.jpg"
         RequestBody reqFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), reqFile);
         Call<AnswerData> result = service.colorizer(body);

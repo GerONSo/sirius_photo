@@ -7,5 +7,7 @@ import com.arellomobile.mvp.MvpPresenter;
 public class RecyclerViewPresenter extends MvpPresenter<IRecyclerView> {
     private MainPresenter mainPresenter;
 
-
+    public void setMainPresenter(MainPresenter mainPresenter) {
+        this.mainPresenter = mainPresenter;
+    }
 }
