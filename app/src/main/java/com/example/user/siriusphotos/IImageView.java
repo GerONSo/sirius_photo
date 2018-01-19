@@ -6,9 +6,7 @@ import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.SingleStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
-/**
- * Created by user on 17.01.2018.
- */
+import java.io.File;
 
 public interface IImageView extends MvpView {
     @StateStrategyType(SingleStateStrategy.class)

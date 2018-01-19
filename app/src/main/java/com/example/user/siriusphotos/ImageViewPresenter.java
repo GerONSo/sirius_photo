@@ -1,18 +1,26 @@
 package com.example.user.siriusphotos;
 
-import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import java.io.File;
 
-/**
- * Created by shana on 17-Jan-18.
- */
 
 @InjectViewState
 public class ImageViewPresenter extends MvpPresenter<IImageView> {
-    void selectImageFromGallery() {}
-    void setImage(File file) {}
+    private MainPresenter mainPresenter;
+
+    public void setMainPresenter(MainPresenter mainPresenter) {
+        this.mainPresenter = mainPresenter;
+    }
+
+    public void setImg(File file){
+        getViewState().setImage(BitmapFactory.decodeFile(file.getAbsolutePath()));
+    }
+
+    void selectImageFromGallery() {
+
+    }
 }

@@ -1,5 +1,8 @@
 package com.example.user.siriusphotos;
 
+import android.content.Context;
+import android.net.Uri;
+
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.SingleStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy;
@@ -7,15 +10,13 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 import java.io.File;
 
-/**
- * Created by user on 17.01.2018.
- */
-
 public interface IMainView extends MvpView {
     @StateStrategyType(SkipStrategy.class)
-    File getImageFromGallery();
+    void getTempFilesDir(File dir);
     @StateStrategyType(SkipStrategy.class)
-    File getImageFromCamera();
+    void requestImageFromGallery();
+    @StateStrategyType(SkipStrategy.class)
+    void requestImageFromCamera(File file);
     @StateStrategyType(SingleStateStrategy.class)
     void startLoadView();
     @StateStrategyType(SingleStateStrategy.class)

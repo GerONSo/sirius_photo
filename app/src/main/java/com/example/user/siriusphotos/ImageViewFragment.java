@@ -14,14 +14,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.arellomobile.mvp.presenter.InjectPresenter;
 
-public class ImageViewFragment extends Fragment {
-
+public class ImageViewFragment extends MvpAppCompatFragment implements IImageView{
     private ImageView imageView;
     private FloatingActionButton photoBtn;
 
-    public ImageViewFragment() {
-        // Required empty public constructor
+    @InjectPresenter
+    ImageViewPresenter presenter;
+
+
+    @Override
+    public void setImage(Bitmap img) {
+        imageView.setImageBitmap(img);
     }
     public static ImageViewFragment newInstance(){
         return new ImageViewFragment();
@@ -34,6 +40,7 @@ public class ImageViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_image_view, container, false);
     }
 
