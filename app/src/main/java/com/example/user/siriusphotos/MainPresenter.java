@@ -8,9 +8,6 @@ import java.io.File;
 @InjectViewState
 public class MainPresenter extends MvpPresenter<IMainView> {
 
-
-
-
     public interface ImageReceiver {
         void acceptImage(File file);
     }
@@ -33,8 +30,8 @@ public class MainPresenter extends MvpPresenter<IMainView> {
     }
 
     private File getTempPhotoFile() {
-        File dir = null;
+        Box<File> dir = new Box<>();
         getViewState().getTempFilesDir(dir);
-        return FileUtils.getNewImageFile(dir, "tmp_", ".jpg");
+        return FileUtils.getNewImageFile(dir.getValue(), "tmp_", ".jpg");
     }
 }
