@@ -41,7 +41,6 @@ public class ImageViewFragment extends MvpAppCompatFragment implements IImageVie
         super.onCreate(savedInstanceState);
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
