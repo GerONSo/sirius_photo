@@ -45,6 +45,8 @@ public class RecyclerViewFragment extends MvpAppCompatFragment implements IRecyc
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        if (savedInstanceState != null)
+            presenter.setMainPresenter(mainPresenter);
         listView = view.findViewById(R.id.listView);
         listView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         Bitmap stylizeBitmap = takeBitmap(R.drawable.stylize);
@@ -55,8 +57,6 @@ public class RecyclerViewFragment extends MvpAppCompatFragment implements IRecyc
         Bitmap dogsPlayingPokerBitmap = takeBitmap(R.drawable.dogs_playing_poker);
         Bitmap[] dataset = new Bitmap[]{colorizerBitmap, stylizeBitmap, theScreamBitmap, theStarryNightBitmap, waterLilies, dogsPlayingPokerBitmap};
         PictureAdapter adapter = new PictureAdapter(dataset);
-        if (savedInstanceState != null)
-            presenter.setMainPresenter(mainPresenter);
         listView.setAdapter(adapter);
     }
     private Bitmap takeBitmap(int id){

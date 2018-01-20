@@ -58,8 +58,17 @@ public class ImageViewFragment extends MvpAppCompatFragment implements IImageVie
         }
         imageView = view.findViewById(R.id.image_view);
         photoBtn = view.findViewById(R.id.camera_button);
-
-        presenter.setBtn(photoBtn);
-
+        photoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.selectImageFromCamera();
+            }
+        });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.selectImageFromGallery();
+            }
+        });
     }
 }
