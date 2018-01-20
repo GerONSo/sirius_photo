@@ -26,9 +26,11 @@ public class ImageViewFragment extends MvpAppCompatFragment implements IImageVie
     public void setImage(Bitmap img) {
         imageView.setImageBitmap(img);
     }
+
     public static ImageViewFragment newInstance(){
         return new ImageViewFragment();
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

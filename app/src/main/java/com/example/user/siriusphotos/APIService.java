@@ -7,10 +7,6 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 
-/**
- * Created by user on 13.01.2018.
- */
-
 public interface APIService {
 
     @Headers("api-key: 24f81b43-d622-4a70-8e6a-7cd01e631550")

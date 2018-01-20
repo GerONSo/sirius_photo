@@ -50,8 +50,8 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     }
 
     @Override
-    public void getTempFilesDir(File dir) {
-        dir = getCacheDir();
+    public void getTempFilesDir(Box<File> dir) {
+        dir.setValue(getFilesDir());
     }
 
     @Override
@@ -61,7 +61,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     @Override
     public void requestImageFromCamera(File file) {
-        Uri contentUri = FileUtils.getContentUri(getApplicationContext(), file);
+        Uri contentUri = FileUtils.getContentUri(this, file);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 .putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
         List<ResolveInfo> cameraActivities = getPackageManager()
