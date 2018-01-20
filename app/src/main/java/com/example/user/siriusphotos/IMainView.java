@@ -1,5 +1,7 @@
 package com.example.user.siriusphotos;
 
+import android.net.Uri;
+
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
@@ -12,6 +14,8 @@ import java.io.File;
 public interface IMainView extends MvpView {
     @StateStrategyType(SkipStrategy.class)
     void getTempFilesDir(Box<File> dir);
+    @StateStrategyType(SkipStrategy.class)
+    void createFileByContentUri(Uri src, File dst);
     @StateStrategyType(SkipStrategy.class)
     void requestImageFromGallery();
     @StateStrategyType(SkipStrategy.class)

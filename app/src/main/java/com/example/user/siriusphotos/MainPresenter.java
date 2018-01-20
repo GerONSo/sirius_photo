@@ -1,5 +1,7 @@
 package com.example.user.siriusphotos;
 
+import android.net.Uri;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
@@ -15,8 +17,10 @@ public class MainPresenter extends MvpPresenter<IMainView> {
     private ImageReceiver callback;
     private File file;
 
-    void selectImageFromGalery(ImageReceiver callback) {
+    void selectImageFromGallery(ImageReceiver callback) {
         this.callback = callback;
+        file = getTempPhotoFile();
+        getViewState().requestImageFromGallery();
 
     }
     void selectImageFromCamera(ImageReceiver callback) {
@@ -26,6 +30,11 @@ public class MainPresenter extends MvpPresenter<IMainView> {
     }
 
     void onImageReadyFromCamera() {
+        callback.acceptImage(file);
+    }
+
+    void onImageReadyFromGallery(Uri contentUri) {
+        getViewState().createFileByContentUri(contentUri, file);
         callback.acceptImage(file);
     }
 

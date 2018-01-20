@@ -54,7 +54,7 @@ public class ImageViewFragment extends MvpAppCompatFragment implements IImageVie
             presenter.setMainPresenter(mainPresenter);
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.elbi);
             Log.d("mylog", bitmap.toString());
-            presenter.setImg(bitmap);
+            presenter.setImage(bitmap);
         }
         imageView = view.findViewById(R.id.image_view);
         photoBtn = view.findViewById(R.id.camera_button);

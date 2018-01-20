@@ -1,6 +1,7 @@
 package com.example.user.siriusphotos;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -11,11 +12,17 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 public class MainActivity extends MvpAppCompatActivity implements IMainView {
@@ -36,7 +43,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             presenter.createFragment();
         }
     }
@@ -47,8 +54,25 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     }
 
     @Override
-    public void requestImageFromGallery() {
+    public void createFileByContentUri(Uri src, File dst) {
+        try (InputStream in = getContentResolver().openInputStream(src)) {
+            try (OutputStream out = new FileOutputStream(dst)) {
+                byte[] buf = new byte[1024];
+                int len;
+                while ((len = in.read(buf)) > 0) {
+                    out.write(buf, 0, len);
+                }
+            }
+        } catch (IOException e) {
+            Toast.makeText(this, R.string.error_filesystem, Toast.LENGTH_SHORT).show();
+        }
+    }
 
+    @Override
+    public void requestImageFromGallery() {
+        Intent pickIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                .setType("image/*");
+        startActivityForResult(pickIntent, REQUEST_GALLERY);
     }
 
     @Override
@@ -73,6 +97,9 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
                 case REQUEST_CAMERA:
                     presenter.onImageReadyFromCamera();
                     break;
+                case REQUEST_GALLERY:
+                    presenter.onImageReadyFromGallery(data.getData());
+                    break;
             }
         }
     }
@@ -89,7 +116,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     @Override
     public void createFragment() {
-        Toolbar toolbar=findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton photoBtn = findViewById(R.id.camera_button);
         fragment = RecyclerViewFragment.newInstance();

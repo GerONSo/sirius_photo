@@ -16,10 +16,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by user on 13.01.2018.
- */
-
 public class APIHelper {
     private static final String HOST = "https://api.deepai.org/";
     private static APIHelper instance;

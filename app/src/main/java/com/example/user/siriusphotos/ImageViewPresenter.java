@@ -2,8 +2,6 @@ package com.example.user.siriusphotos;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -19,18 +17,25 @@ public class ImageViewPresenter extends MvpPresenter<IImageView> {
         this.mainPresenter = mainPresenter;
     }
 
-    public void setImg(Bitmap file) {
+    public void setImage(Bitmap file) {
         getViewState().setImage(file);
     }
 
+
+
     void selectImageFromGallery() {
-        Log.d("Ok", "OK");
+        mainPresenter.selectImageFromGallery(new MainPresenter.ImageReceiver() {
+            @Override
+            public void acceptImage(File file) {
+                setImage(BitmapFactory.decodeFile(file.getAbsolutePath()));
+            }
+        });
     }
     void selectImageFromCamera(){
         mainPresenter.selectImageFromCamera(new MainPresenter.ImageReceiver() {
             @Override
             public void acceptImage(File file) {
-                setImg((BitmapFactory.decodeFile(file.getAbsolutePath())));
+                setImage(BitmapFactory.decodeFile(file.getAbsolutePath()));
             }
         });
     }
