@@ -12,6 +12,6 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import java.io.File;
 
 public interface IImageView extends MvpView {
-    @StateStrategyType(OneExecutionStateStrategy.class)
+    @StateStrategyType(AddToEndSingleStrategy.class)
     void setImage(Bitmap img);
 }

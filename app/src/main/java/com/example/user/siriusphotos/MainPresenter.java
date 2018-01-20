@@ -34,4 +34,9 @@ public class MainPresenter extends MvpPresenter<IMainView> {
         getViewState().getTempFilesDir(dir);
         return FileUtils.getNewImageFile(dir.getValue(), "tmp_", ".jpg");
     }
+
+    void createFragment(){
+        getViewState().createFragment();
+    }
+
 }

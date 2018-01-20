@@ -1,9 +1,8 @@
 package com.example.user.siriusphotos;
 
-import android.content.Context;
-import android.net.Uri;
-
 import com.arellomobile.mvp.MvpView;
+import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
+import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.SingleStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
@@ -21,4 +20,6 @@ public interface IMainView extends MvpView {
     void startLoadView();
     @StateStrategyType(SingleStateStrategy.class)
     void stopLoadView();
+    @StateStrategyType(OneExecutionStateStrategy.class)
+    void createFragment();
 }

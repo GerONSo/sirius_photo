@@ -7,7 +7,6 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
@@ -27,21 +26,16 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     public static final String RECYCLER_VIEW_FRAGMENT_TAG = "recycler view";
     public static final String IMAGE_VIEW_FRAGMENT_TAG = "image view";
 
-    private  RecyclerViewFragment fragment;
+    private RecyclerViewFragment fragment;
     private ImageViewFragment imageViewFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FloatingActionButton photoBtn = findViewById(R.id.camera_button);
-        fragment = RecyclerViewFragment.newInstance();
-        imageViewFragment = ImageViewFragment.newInstance();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.image_frame, imageViewFragment, IMAGE_VIEW_FRAGMENT_TAG)
-                .replace(R.id.recycler_frame, fragment, RECYCLER_VIEW_FRAGMENT_TAG)
-                .commit();
+        if(savedInstanceState == null){
+            presenter.createFragment();
+        }
     }
 
     @Override
@@ -68,13 +62,6 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         startActivityForResult(intent, REQUEST_CAMERA);
     }
 
-    @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        imageViewFragment.presenter.setMainPresenter(presenter);
-        fragment.presenter.setMainPresenter(presenter);
-        imageViewFragment.setListnerButton();
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -94,6 +81,21 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     @Override
     public void stopLoadView() {
+
+    }
+
+    @Override
+    public void createFragment() {
+        FloatingActionButton photoBtn = findViewById(R.id.camera_button);
+        fragment = RecyclerViewFragment.newInstance();
+        imageViewFragment = ImageViewFragment.newInstance();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.image_frame, imageViewFragment, IMAGE_VIEW_FRAGMENT_TAG)
+                .add(R.id.recycler_frame, fragment, RECYCLER_VIEW_FRAGMENT_TAG)
+                .commit();
+        imageViewFragment.setMainPresenter(presenter);
+        fragment.setMainPresenter(presenter);
 
     }
 

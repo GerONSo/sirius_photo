@@ -14,20 +14,25 @@ import android.widget.ImageView;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
-public class ImageViewFragment extends MvpAppCompatFragment implements IImageView{
+public class ImageViewFragment extends MvpAppCompatFragment implements IImageView {
     private ImageView imageView;
     private FloatingActionButton photoBtn;
 
     @InjectPresenter
     ImageViewPresenter presenter;
 
+    private MainPresenter mainPresenter;
+
+    public void setMainPresenter(MainPresenter mainPresenter) {
+        this.mainPresenter = mainPresenter;
+    }
 
     @Override
     public void setImage(Bitmap img) {
         imageView.setImageBitmap(img);
     }
 
-    public static ImageViewFragment newInstance(){
+    public static ImageViewFragment newInstance() {
         return new ImageViewFragment();
     }
 
@@ -36,6 +41,7 @@ public class ImageViewFragment extends MvpAppCompatFragment implements IImageVie
         super.onCreate(savedInstanceState);
 
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,18 +51,16 @@ public class ImageViewFragment extends MvpAppCompatFragment implements IImageVie
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        imageView=view.findViewById(R.id.image_view);
-        photoBtn=view.findViewById(R.id.camera_button);
-        Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.elbi);
-        Log.d("mylog",bitmap.toString());
-        imageView.setImageBitmap(bitmap);
-    }
-    public void setListnerButton(){
-        photoBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.selectImageFromCamera();
-            }
-        });
+        if (savedInstanceState == null) {
+            presenter.setMainPresenter(mainPresenter);
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.elbi);
+            Log.d("mylog", bitmap.toString());
+            presenter.setImg(bitmap);
+        }
+        imageView = view.findViewById(R.id.image_view);
+        photoBtn = view.findViewById(R.id.camera_button);
+
+        presenter.setBtn(photoBtn);
+
     }
 }
