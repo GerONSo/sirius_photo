@@ -1,4 +1,4 @@
-package com.example.user.siriusphotos;
+package com.example.user.siriusphotos.utils;
 
 import android.content.Context;
 import android.net.Uri;
@@ -25,19 +25,5 @@ public class FileUtils {
 
     public static Uri getContentUri(Context context, File file) {
         return FileProvider.getUriForFile(context, CONTENT_AUTHORITY, file);
-    }
-
-
-
-    public static void copyContentUriToFile(Context context, Uri src, File dst) throws IOException {
-        try (InputStream in = context.getContentResolver().openInputStream(src)) {
-            try (OutputStream out = new FileOutputStream(dst)) {
-                byte[] buf = new byte[1024];
-                int len;
-                while ((len = in.read(buf)) > 0) {
-                    out.write(buf, 0, len);
-                }
-            }
-        }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.user.siriusphotos;
+package com.example.user.siriusphotos.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,8 +13,13 @@ import android.widget.ImageView;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.example.user.siriusphotos.views.IImageView;
+import com.example.user.siriusphotos.presenters.ImageViewPresenter;
+import com.example.user.siriusphotos.presenters.MainPresenter;
+import com.example.user.siriusphotos.R;
 
 public class ImageViewFragment extends MvpAppCompatFragment implements IImageView {
+
     private ImageView imageView;
     private FloatingActionButton photoBtn;
 

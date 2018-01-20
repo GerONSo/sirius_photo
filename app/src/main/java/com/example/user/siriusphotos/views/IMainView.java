@@ -1,13 +1,13 @@
-package com.example.user.siriusphotos;
+package com.example.user.siriusphotos.views;
 
 import android.net.Uri;
 
 import com.arellomobile.mvp.MvpView;
-import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.SingleStateStrategy;
 import com.arellomobile.mvp.viewstate.strategy.SkipStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
+import com.example.user.siriusphotos.utils.Box;
 
 import java.io.File;
 

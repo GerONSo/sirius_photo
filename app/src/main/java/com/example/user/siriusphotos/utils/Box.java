@@ -1,4 +1,4 @@
-package com.example.user.siriusphotos;
+package com.example.user.siriusphotos.utils;
 
 public class Box<T> {
 

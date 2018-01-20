@@ -1,24 +1,25 @@
-package com.example.user.siriusphotos;
+package com.example.user.siriusphotos.ui;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.Toolbar;
-import android.view.Window;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.example.user.siriusphotos.utils.Box;
+import com.example.user.siriusphotos.views.IMainView;
+import com.example.user.siriusphotos.presenters.MainPresenter;
+import com.example.user.siriusphotos.R;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,6 +36,8 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     public static final String RECYCLER_VIEW_FRAGMENT_TAG = "recycler view";
     public static final String IMAGE_VIEW_FRAGMENT_TAG = "image view";
+
+    private static final String CONTENT_AUTHORITY = "com.example.user.siriusphotos.fileprovider";
 
     private RecyclerViewFragment fragment;
     private ImageViewFragment imageViewFragment;
@@ -77,7 +80,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     @Override
     public void requestImageFromCamera(File file) {
-        Uri contentUri = FileUtils.getContentUri(this, file);
+        Uri contentUri = FileProvider.getUriForFile(this, CONTENT_AUTHORITY, file);;
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 .putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
         List<ResolveInfo> cameraActivities = getPackageManager()

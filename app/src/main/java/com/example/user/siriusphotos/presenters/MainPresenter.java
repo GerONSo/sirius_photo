@@ -1,9 +1,12 @@
-package com.example.user.siriusphotos;
+package com.example.user.siriusphotos.presenters;
 
 import android.net.Uri;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.example.user.siriusphotos.utils.Box;
+import com.example.user.siriusphotos.utils.FileUtils;
+import com.example.user.siriusphotos.views.IMainView;
 
 import java.io.File;
 
@@ -29,11 +32,11 @@ public class MainPresenter extends MvpPresenter<IMainView> {
         getViewState().requestImageFromCamera(file);
     }
 
-    void onImageReadyFromCamera() {
+    public void onImageReadyFromCamera() {
         callback.acceptImage(file);
     }
 
-    void onImageReadyFromGallery(Uri contentUri) {
+    public void onImageReadyFromGallery(Uri contentUri) {
         getViewState().createFileByContentUri(contentUri, file);
         callback.acceptImage(file);
     }
@@ -44,7 +47,7 @@ public class MainPresenter extends MvpPresenter<IMainView> {
         return FileUtils.getNewImageFile(dir.getValue(), "tmp_", ".jpg");
     }
 
-    void createFragment(){
+    public void createFragment(){
         getViewState().createFragment();
     }
 

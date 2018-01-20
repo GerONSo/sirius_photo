@@ -1,4 +1,4 @@
-package com.example.user.siriusphotos;
+package com.example.user.siriusphotos.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,8 +12,12 @@ import android.view.ViewGroup;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.example.user.siriusphotos.views.IRecyclerView;
+import com.example.user.siriusphotos.presenters.MainPresenter;
+import com.example.user.siriusphotos.R;
+import com.example.user.siriusphotos.presenters.RecyclerViewPresenter;
 
-public class RecyclerViewFragment extends MvpAppCompatFragment implements IRecyclerView{
+public class RecyclerViewFragment extends MvpAppCompatFragment implements IRecyclerView {
 
     @InjectPresenter
     RecyclerViewPresenter presenter;

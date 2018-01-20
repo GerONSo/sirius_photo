@@ -1,12 +1,7 @@
-package com.example.user.siriusphotos;
+package com.example.user.siriusphotos.ui;
 
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
+import com.example.user.siriusphotos.R;
 
 
 public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHolder>{

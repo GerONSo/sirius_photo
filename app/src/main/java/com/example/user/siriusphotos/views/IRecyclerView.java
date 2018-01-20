@@ -1,4 +1,4 @@
-package com.example.user.siriusphotos;
+package com.example.user.siriusphotos.views;
 
 import android.graphics.Bitmap;
 

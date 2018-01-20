@@ -1,4 +1,4 @@
-package com.example.user.siriusphotos;
+package com.example.user.siriusphotos.models.deepai;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;

@@ -1,4 +1,4 @@
-package com.example.user.siriusphotos;
+package com.example.user.siriusphotos.models.deepai;
 
 import com.google.gson.annotations.SerializedName;
 
