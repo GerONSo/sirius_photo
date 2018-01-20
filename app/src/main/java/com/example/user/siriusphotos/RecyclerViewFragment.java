@@ -42,7 +42,7 @@ public class RecyclerViewFragment extends MvpAppCompatFragment implements IRecyc
         listView=view.findViewById(R.id.listView);
         listView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         Bitmap stylizeBitmap=takeBitmap(R.drawable.stylize);
-        Bitmap colorizerBitmap=takeBitmap(R.drawable.colorizer_churchill);
+        Bitmap colorizerBitmap=takeBitmap(R.drawable.colorizer);
         Bitmap theScreamBitmap=takeBitmap(R.drawable.the_scream);
         Bitmap theStarryNightBitmap=takeBitmap(R.drawable.the_starry_night);
         Bitmap waterLilies=takeBitmap(R.drawable.water_lilies);

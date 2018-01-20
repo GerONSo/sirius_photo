@@ -45,9 +45,10 @@ public class ImageViewFragment extends MvpAppCompatFragment implements IImageVie
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         imageView=view.findViewById(R.id.image_view);
         photoBtn=view.findViewById(R.id.camera_button);
-        Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.elbi);
+        Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.dogs_playing_poker);
         Log.d("mylog",bitmap.toString());
         imageView.setImageBitmap(bitmap);
+
     }
     public void setListnerButton(){
         photoBtn.setOnClickListener(new View.OnClickListener() {
