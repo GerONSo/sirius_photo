@@ -132,6 +132,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         imageViewFragment.setMainPresenter(presenter);
         fragment.setMainPresenter(presenter);
 
+
     }
 
 }

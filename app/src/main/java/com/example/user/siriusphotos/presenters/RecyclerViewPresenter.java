@@ -20,6 +20,7 @@ public class RecyclerViewPresenter extends MvpPresenter<IRecyclerView> {
     private ArrayList<RecyclerViewData> list;
     public void setMainPresenter(MainPresenter mainPresenter, Resources resource) {
         this.mainPresenter = mainPresenter;
+        mainPresenter.setRecyclerPresenter(this);
         list = new ArrayList<>();
         list.add(new RecyclerViewData(BitmapFactory.decodeResource(resource, R.drawable.colorizer), "colorizer", Query.COLORIZER));
     }

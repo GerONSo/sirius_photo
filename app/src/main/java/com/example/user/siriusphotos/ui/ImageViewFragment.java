@@ -18,6 +18,8 @@ import com.example.user.siriusphotos.presenters.ImageViewPresenter;
 import com.example.user.siriusphotos.presenters.MainPresenter;
 import com.example.user.siriusphotos.R;
 
+import java.io.File;
+
 public class ImageViewFragment extends MvpAppCompatFragment implements IImageView {
 
     private ImageView imageView;
@@ -37,6 +39,7 @@ public class ImageViewFragment extends MvpAppCompatFragment implements IImageVie
         imageView.setImageBitmap(img);
     }
 
+
     public static ImageViewFragment newInstance() {
         return new ImageViewFragment();
     }
@@ -46,6 +49,7 @@ public class ImageViewFragment extends MvpAppCompatFragment implements IImageVie
         super.onCreate(savedInstanceState);
 
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

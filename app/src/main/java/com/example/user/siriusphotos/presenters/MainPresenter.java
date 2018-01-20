@@ -1,13 +1,19 @@
 package com.example.user.siriusphotos.presenters;
 
+import android.content.Context;
 import android.net.Uri;
+import android.widget.ImageView;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.example.user.siriusphotos.models.deepai.APIHelper;
+import com.example.user.siriusphotos.models.deepai.AnswerData;
 import com.example.user.siriusphotos.utils.Box;
 import com.example.user.siriusphotos.utils.FileUtils;
+import com.example.user.siriusphotos.utils.Query;
 import com.example.user.siriusphotos.utils.RecyclerViewData;
 import com.example.user.siriusphotos.views.IMainView;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
@@ -16,6 +22,16 @@ public class MainPresenter extends MvpPresenter<IMainView> {
 
     public interface ImageReceiver {
         void acceptImage(File file);
+    }
+    private ImageViewPresenter imagePresenter;
+    private RecyclerViewPresenter recyclerPresenter;
+
+    public void setImagePresenter(ImageViewPresenter imagePresenter) {
+        this.imagePresenter = imagePresenter;
+    }
+
+    public void setRecyclerPresenter(RecyclerViewPresenter recyclerPresenter) {
+        this.recyclerPresenter = recyclerPresenter;
     }
 
     private ImageReceiver callback;
@@ -53,6 +69,23 @@ public class MainPresenter extends MvpPresenter<IMainView> {
     }
 
     public void query(RecyclerViewData q){
+        if(q.getType() == Query.COLORIZER){
+            APIHelper.getInstance().colorizer(imagePresenter.getMainImg().getAbsolutePath(), new APIHelper.OnLoad() {
+                @Override
+                public void onLoad(AnswerData a) {
+                    
+                }
 
+                @Override
+                public void onFailedLoad() {
+
+                }
+
+                @Override
+                public void emptyFile() {
+
+                }
+            });
+        }
     }
 }

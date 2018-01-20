@@ -14,22 +14,31 @@ import java.io.File;
 public class ImageViewPresenter extends MvpPresenter<IImageView> {
 
     private MainPresenter mainPresenter;
-
+    private File mainImg;
     public void setMainPresenter(MainPresenter mainPresenter) {
         this.mainPresenter = mainPresenter;
+        mainPresenter.setImagePresenter(this);
     }
-
     public void setImage(Bitmap file) {
         getViewState().setImage(file);
     }
 
+    public File getMainImg() {
+        return mainImg;
+    }
+
+    public void setImage(File file) {
+        mainImg = file;
+
+        getViewState().setImage(BitmapFactory.decodeFile(file.getAbsolutePath()));
+    }
 
 
     public void selectImageFromGallery() {
         mainPresenter.selectImageFromGallery(new MainPresenter.ImageReceiver() {
             @Override
             public void acceptImage(File file) {
-                setImage(BitmapFactory.decodeFile(file.getAbsolutePath()));
+                setImage(file);
             }
         });
     }
@@ -37,7 +46,7 @@ public class ImageViewPresenter extends MvpPresenter<IImageView> {
         mainPresenter.selectImageFromCamera(new MainPresenter.ImageReceiver() {
             @Override
             public void acceptImage(File file) {
-                setImage(BitmapFactory.decodeFile(file.getAbsolutePath()));
+                setImage(file);
             }
         });
     }

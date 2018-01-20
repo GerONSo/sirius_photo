@@ -35,7 +35,7 @@ public class APIHelper {
         return retrofit;
     }
 
-    interface OnLoad{
+    public interface OnLoad{
         void onLoad(AnswerData a);
         void onFailedLoad();
         void emptyFile();
