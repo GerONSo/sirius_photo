@@ -6,6 +6,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.example.user.siriusphotos.utils.Box;
 import com.example.user.siriusphotos.utils.FileUtils;
+import com.example.user.siriusphotos.utils.RecyclerViewData;
 import com.example.user.siriusphotos.views.IMainView;
 
 import java.io.File;
@@ -51,4 +52,7 @@ public class MainPresenter extends MvpPresenter<IMainView> {
         getViewState().createFragment();
     }
 
+    public void query(RecyclerViewData q){
+
+    }
 }
