@@ -10,12 +10,12 @@ import retrofit2.http.Part;
 public interface APIService {
 
     @Headers("api-key: 24f81b43-d622-4a70-8e6a-7cd01e631550")
-    @POST("api/colorizer")
+    @POST("/api/colorizer")
     @Multipart
     Call<AnswerData> colorizer(@Part MultipartBody.Part image);
 
     @Headers("api-key: 24f81b43-d622-4a70-8e6a-7cd01e631550")
-    @POST("api/CNNMRF")
+    @POST("/api/CNNMRF")
     @Multipart
     Call<AnswerData> CNNMRF(@Part MultipartBody.Part content_image, @Part MultipartBody.Part style_img);
 

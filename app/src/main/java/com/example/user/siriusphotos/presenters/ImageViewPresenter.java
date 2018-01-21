@@ -3,10 +3,12 @@ package com.example.user.siriusphotos.presenters;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
+import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.example.user.siriusphotos.models.deepai.AnswerData;
+import com.example.user.siriusphotos.models.deepai.LoadHelper;
 import com.example.user.siriusphotos.views.IImageView;
 
 import java.io.File;
@@ -25,7 +27,14 @@ public class ImageViewPresenter extends MvpPresenter<IImageView> {
         getViewState().setImage(file);
     }
     public void loadImage(AnswerData answerData){
+        LoadHelper.getInstance().imageDownload(answerData.url, new LoadHelper.OnLoad() {
+            @Override
+            public void onLoad(File file) {
+                Log.d("Ok", "Callback");
+                setImage(file);
 
+            }
+        });
     }
     public File getMainImg() {
         return mainImg;
@@ -33,7 +42,6 @@ public class ImageViewPresenter extends MvpPresenter<IImageView> {
 
     public void setImage(File file) {
         mainImg = file;
-
         getViewState().setImage(BitmapFactory.decodeFile(file.getAbsolutePath()));
     }
 

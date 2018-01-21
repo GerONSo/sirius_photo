@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.example.user.siriusphotos.models.deepai.APIService;
+import com.example.user.siriusphotos.models.deepai.LoadHelper;
 import com.example.user.siriusphotos.utils.Box;
 import com.example.user.siriusphotos.views.IMainView;
 import com.example.user.siriusphotos.presenters.MainPresenter;
@@ -53,6 +55,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
+            LoadHelper.getInstance().setContext(getApplicationContext());
             presenter.createFragment();
         }
     }
@@ -87,7 +90,6 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     @Override
     public void requestImageFromCamera(File file) {
         Uri contentUri = FileProvider.getUriForFile(this, CONTENT_AUTHORITY, file);
-        ;
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 .putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
         List<ResolveInfo> cameraActivities = getPackageManager()

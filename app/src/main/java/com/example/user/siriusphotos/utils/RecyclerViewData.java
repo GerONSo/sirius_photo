@@ -1,8 +1,6 @@
 package com.example.user.siriusphotos.utils;
 
 import android.graphics.Bitmap;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 /**
  * Created by user on 20.01.2018.
