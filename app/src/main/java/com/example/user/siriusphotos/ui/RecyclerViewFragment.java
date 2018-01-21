@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -25,7 +26,7 @@ public class RecyclerViewFragment extends MvpAppCompatFragment implements IRecyc
     RecyclerViewPresenter presenter;
 
     private MainPresenter mainPresenter;
-
+    private ImageView img;
     public void setMainPresenter(MainPresenter mainPresenter) {
         this.mainPresenter = mainPresenter;
     }
@@ -72,5 +73,6 @@ public class RecyclerViewFragment extends MvpAppCompatFragment implements IRecyc
             }
         });
         listView.setAdapter(adapter);
+
     }
 }

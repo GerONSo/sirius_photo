@@ -15,4 +15,5 @@ public interface IRecyclerView extends MvpView {
 
     @StateStrategyType(AddToEndSingleStrategy.class)
     void createList(ArrayList<RecyclerViewData> list);
+
 }

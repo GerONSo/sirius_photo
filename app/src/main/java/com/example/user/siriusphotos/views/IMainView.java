@@ -27,5 +27,7 @@ public interface IMainView extends MvpView {
     void stopLoadView();
     @StateStrategyType(OneExecutionStateStrategy.class)
     void createFragment();
+    @StateStrategyType(SkipStrategy.class)
+    void makeTost(String s);
 
 }

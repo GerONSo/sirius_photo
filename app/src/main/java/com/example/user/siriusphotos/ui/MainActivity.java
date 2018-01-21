@@ -64,6 +64,10 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
             LoadHelper.getInstance().setContext(getApplicationContext());
             presenter.createFragment();
         }
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         requestPermissions();
     }
 
@@ -137,10 +141,6 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     @Override
     public void createFragment() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
         FloatingActionButton photoBtn = findViewById(R.id.camera_button);
         fragment = RecyclerViewFragment.newInstance();
         imageViewFragment = ImageViewFragment.newInstance();
@@ -155,6 +155,11 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     }
 
     @Override
+    public void makeTost(String s) {
+        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -162,6 +167,12 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        String s = presenter.getUri();
+        if(s.equals(""))
+        {
+            presenter.makeToast("Выберите файл");
+            return false;
+        }
         createInstagramIntent("image/*", presenter.getUri());
         return true;
     }
@@ -195,7 +206,6 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
                     REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE);
         }
     }
-
 
 
 }
