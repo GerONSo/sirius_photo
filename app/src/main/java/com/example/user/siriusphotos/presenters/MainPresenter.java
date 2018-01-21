@@ -1,8 +1,10 @@
 package com.example.user.siriusphotos.presenters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.widget.ImageView;
+import android.os.Environment;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -13,9 +15,9 @@ import com.example.user.siriusphotos.utils.FileUtils;
 import com.example.user.siriusphotos.utils.Query;
 import com.example.user.siriusphotos.utils.RecyclerViewData;
 import com.example.user.siriusphotos.views.IMainView;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.net.URL;
 
 @InjectViewState
 public class MainPresenter extends MvpPresenter<IMainView> {
@@ -73,7 +75,7 @@ public class MainPresenter extends MvpPresenter<IMainView> {
             APIHelper.getInstance().colorizer(imagePresenter.getMainImg().getAbsolutePath(), new APIHelper.OnLoad() {
                 @Override
                 public void onLoad(AnswerData a) {
-                    
+                    imagePresenter.loadImage(a);
                 }
 
                 @Override

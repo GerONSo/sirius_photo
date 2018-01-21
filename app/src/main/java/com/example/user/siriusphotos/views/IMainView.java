@@ -1,6 +1,7 @@
 package com.example.user.siriusphotos.views;
 
 import android.net.Uri;
+import android.widget.ImageView;
 
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy;
@@ -26,4 +27,5 @@ public interface IMainView extends MvpView {
     void stopLoadView();
     @StateStrategyType(OneExecutionStateStrategy.class)
     void createFragment();
+
 }

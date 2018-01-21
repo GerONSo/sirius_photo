@@ -2,9 +2,11 @@ package com.example.user.siriusphotos.presenters;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.example.user.siriusphotos.models.deepai.AnswerData;
 import com.example.user.siriusphotos.views.IImageView;
 
 import java.io.File;
@@ -22,7 +24,9 @@ public class ImageViewPresenter extends MvpPresenter<IImageView> {
     public void setImage(Bitmap file) {
         getViewState().setImage(file);
     }
+    public void loadImage(AnswerData answerData){
 
+    }
     public File getMainImg() {
         return mainImg;
     }
