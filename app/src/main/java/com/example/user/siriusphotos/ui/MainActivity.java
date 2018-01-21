@@ -1,15 +1,20 @@
 package com.example.user.siriusphotos.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
@@ -20,6 +25,7 @@ import com.example.user.siriusphotos.presenters.MainPresenter;
 import com.example.user.siriusphotos.R;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -121,6 +127,8 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     public void createFragment() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         FloatingActionButton photoBtn = findViewById(R.id.camera_button);
         fragment = RecyclerViewFragment.newInstance();
         imageViewFragment = ImageViewFragment.newInstance();
@@ -132,6 +140,43 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         imageViewFragment.setMainPresenter(presenter);
         fragment.setMainPresenter(presenter);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        createInstagramIntent("image/*",getPath());
+        return true;
+    }
+    String getPath(){
+        String uri="";
+        return uri;
+    }
+
+
+    private void createInstagramIntent(String type, String mediaPath){
+
+        // Create the new Intent using the 'Send' action.
+        Intent share = new Intent(Intent.ACTION_SEND);
+
+        // Set the MIME type
+        share.setType(type);
+
+        // Create the URI from the media
+        File media = new File(mediaPath);
+        Uri uri = Uri.fromFile(media);
+
+        // Add the URI to the Intent.
+        share.putExtra(Intent.EXTRA_STREAM, uri);
+
+        // Broadcast the Intent.
+        startActivity(Intent.createChooser(share, "Share to"));
     }
 
 }

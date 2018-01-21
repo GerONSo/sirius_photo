@@ -57,7 +57,7 @@ public class ImageViewFragment extends MvpAppCompatFragment implements IImageVie
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             presenter.setMainPresenter(mainPresenter);
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.elbi);
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.open_gallery);
             Log.d("mylog", bitmap.toString());
             presenter.setImage(bitmap);
         }
