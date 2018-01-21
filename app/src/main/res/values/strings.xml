@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">photoStyle</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="error_filesystem">Error accessing the filesystem</string>
+    <string name="share_name">share</string>
 </resources>
