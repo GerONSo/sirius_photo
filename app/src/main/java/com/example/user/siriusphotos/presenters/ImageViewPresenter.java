@@ -45,7 +45,6 @@ public class ImageViewPresenter extends MvpPresenter<IImageView> {
         try {
             bitmap = ImageUtils.getScaledBitmap(mainImg, maxSide, maxSide);
         } catch (IOException e) {
-            Log.d("mytag", "СОСАТЬ ДАУНИЧ ОБОССАНЫЙ");
             // TODO: 21-Jan-18 handle
         }
         getViewState().setImage(bitmap);

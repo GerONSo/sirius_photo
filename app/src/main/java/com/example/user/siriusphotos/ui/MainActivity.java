@@ -1,5 +1,6 @@
 package com.example.user.siriusphotos.ui;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,8 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -41,6 +44,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     public static final int REQUEST_CAMERA = 1;
     public static final int REQUEST_GALLERY = 2;
+    public static final int REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE = 777;
 
     public static final String RECYCLER_VIEW_FRAGMENT_TAG = "recycler view";
     public static final String IMAGE_VIEW_FRAGMENT_TAG = "image view";
@@ -57,6 +61,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         if (savedInstanceState == null) {
             presenter.createFragment();
         }
+        requestPermissions();
     }
 
     @Override
@@ -159,8 +164,8 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     }
 
 
-    private void createInstagramIntent(String type, String mediaPath){
-        Log.d("mylog",mediaPath);
+    private void createInstagramIntent(String type, String mediaPath) {
+        Log.d("mylog", mediaPath);
         // Create the new Intent using the 'Send' action.
         Intent share = new Intent(Intent.ACTION_SEND);
 
@@ -177,5 +182,17 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         // Broadcast the Intent.
         startActivity(Intent.createChooser(share, "Share to"));
     }
+
+    private void requestPermissions() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE);
+        }
+    }
+
+
 
 }
