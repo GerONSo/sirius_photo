@@ -93,10 +93,10 @@ public class MainPresenter extends MvpPresenter<IMainView> {
                 }
             });
         }else if(q.getType() == Query.ADDPHOTOFORGALLEREY){
-            selectImageFromCamera(new ImageReceiver() {
+            selectImageFromGallery(new ImageReceiver() {
                 @Override
                 public void acceptImage(File file) {
-
+                    recyclerPresenter.setImg(file);
                 }
             });
         }

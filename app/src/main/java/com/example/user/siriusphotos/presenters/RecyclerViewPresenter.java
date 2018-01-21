@@ -1,9 +1,7 @@
 package com.example.user.siriusphotos.presenters;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -12,6 +10,7 @@ import com.example.user.siriusphotos.utils.Query;
 import com.example.user.siriusphotos.utils.RecyclerViewData;
 import com.example.user.siriusphotos.views.IRecyclerView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 @InjectViewState
@@ -22,7 +21,12 @@ public class RecyclerViewPresenter extends MvpPresenter<IRecyclerView> {
         this.mainPresenter = mainPresenter;
         mainPresenter.setRecyclerPresenter(this);
         list = new ArrayList<>();
-        list.add(new RecyclerViewData(BitmapFactory.decodeResource(resource, R.drawable.colorizer), "colorizer", Query.COLORIZER));
+        list.add(new RecyclerViewData(BitmapFactory.decodeResource(resource, R.drawable.colorizer), "add", Query.ADDPHOTOFORGALLEREY));
+    }
+    public void setImg(File file){
+        list.get(0).setImg(BitmapFactory.decodeFile(file.getAbsolutePath()));
+        list.get(0).setFile(file);
+        drawList();
     }
     public void drawList(){
         getViewState().createList(list);
