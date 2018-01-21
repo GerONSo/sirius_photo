@@ -1,6 +1,7 @@
 package com.example.user.siriusphotos.views;
 
 import android.graphics.Bitmap;
+import android.graphics.Point;
 
 import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
@@ -14,4 +15,6 @@ import java.io.File;
 public interface IImageView extends MvpView {
     @StateStrategyType(AddToEndSingleStrategy.class)
     void setImage(Bitmap img);
+    @StateStrategyType(SkipStrategy.class)
+    void getViewSize(Point size);
 }

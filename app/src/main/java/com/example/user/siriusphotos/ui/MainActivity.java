@@ -77,6 +77,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         } catch (IOException e) {
             Toast.makeText(this, R.string.error_filesystem, Toast.LENGTH_SHORT).show();
         }
+        presenter.onFileCreatedByContentUri();
     }
 
     @Override

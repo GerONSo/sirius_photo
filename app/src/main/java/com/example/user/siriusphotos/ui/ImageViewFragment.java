@@ -2,6 +2,7 @@ package com.example.user.siriusphotos.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -37,6 +38,11 @@ public class ImageViewFragment extends MvpAppCompatFragment implements IImageVie
     @Override
     public void setImage(Bitmap img) {
         imageView.setImageBitmap(img);
+    }
+
+    @Override
+    public void getViewSize(Point size) {
+        size.set(imageView.getWidth(), imageView.getHeight());
     }
 
 
