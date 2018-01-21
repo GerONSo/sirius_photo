@@ -7,11 +7,13 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -87,7 +89,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     @Override
     public void requestImageFromCamera(File file) {
         Uri contentUri = FileProvider.getUriForFile(this, CONTENT_AUTHORITY, file);
-        ;
+
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 .putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
         List<ResolveInfo> cameraActivities = getPackageManager()
@@ -141,7 +143,6 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         imageViewFragment.setMainPresenter(presenter);
         fragment.setMainPresenter(presenter);
 
-
     }
 
     @Override
@@ -157,8 +158,8 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     }
 
 
-    private void createInstagramIntent(String type, String mediaPath) {
-
+    private void createInstagramIntent(String type, String mediaPath){
+        Log.d("mylog",mediaPath);
         // Create the new Intent using the 'Send' action.
         Intent share = new Intent(Intent.ACTION_SEND);
 
