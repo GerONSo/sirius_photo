@@ -2,16 +2,19 @@ package com.example.user.siriusphotos.presenters;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.os.Environment;
 import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.example.user.siriusphotos.models.deepai.AnswerData;
+import com.example.user.siriusphotos.utils.ImageUtils;
 import com.example.user.siriusphotos.models.deepai.LoadHelper;
 import com.example.user.siriusphotos.views.IImageView;
 
 import java.io.File;
+import java.io.IOException;
 
 
 @InjectViewState
@@ -42,7 +45,17 @@ public class ImageViewPresenter extends MvpPresenter<IImageView> {
 
     public void setImage(File file) {
         mainImg = file;
-        getViewState().setImage(BitmapFactory.decodeFile(file.getAbsolutePath()));
+        Point size = new Point();
+        getViewState().getViewSize(size);
+        int maxSide = Math.max(size.x, size.y);
+        Bitmap bitmap = null;
+        Log.d("mytag", mainImg.getAbsolutePath());
+        try {
+            bitmap = ImageUtils.getScaledBitmap(mainImg, maxSide, maxSide);
+        } catch (IOException e) {
+            // TODO: 21-Jan-18 handle
+        }
+        getViewState().setImage(bitmap);
     }
 
 

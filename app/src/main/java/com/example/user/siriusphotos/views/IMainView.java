@@ -15,7 +15,7 @@ import java.io.File;
 public interface IMainView extends MvpView {
     @StateStrategyType(SkipStrategy.class)
     void getTempFilesDir(Box<File> dir);
-    @StateStrategyType(SkipStrategy.class)
+    @StateStrategyType(OneExecutionStateStrategy.class)
     void createFileByContentUri(Uri src, File dst);
     @StateStrategyType(SkipStrategy.class)
     void requestImageFromGallery();

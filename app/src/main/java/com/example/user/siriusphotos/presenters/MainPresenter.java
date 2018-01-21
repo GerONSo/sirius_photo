@@ -54,6 +54,9 @@ public class MainPresenter extends MvpPresenter<IMainView> {
 
     public void onImageReadyFromGallery(Uri contentUri) {
         getViewState().createFileByContentUri(contentUri, file);
+    }
+
+    public void onFileCreatedByContentUri() {
         callback.acceptImage(file);
     }
 
