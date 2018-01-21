@@ -1,10 +1,6 @@
 package com.example.user.siriusphotos.presenters;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Environment;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -17,7 +13,6 @@ import com.example.user.siriusphotos.utils.RecyclerViewData;
 import com.example.user.siriusphotos.views.IMainView;
 
 import java.io.File;
-import java.net.URL;
 
 @InjectViewState
 public class MainPresenter extends MvpPresenter<IMainView> {
@@ -27,7 +22,9 @@ public class MainPresenter extends MvpPresenter<IMainView> {
     }
     private ImageViewPresenter imagePresenter;
     private RecyclerViewPresenter recyclerPresenter;
-
+    public String getUri(){
+        return imagePresenter.getMainImg().getAbsolutePath();
+    }
     public void setImagePresenter(ImageViewPresenter imagePresenter) {
         this.imagePresenter = imagePresenter;
     }

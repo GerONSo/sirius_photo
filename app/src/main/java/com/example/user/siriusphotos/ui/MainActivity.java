@@ -86,7 +86,8 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     @Override
     public void requestImageFromCamera(File file) {
-        Uri contentUri = FileProvider.getUriForFile(this, CONTENT_AUTHORITY, file);;
+        Uri contentUri = FileProvider.getUriForFile(this, CONTENT_AUTHORITY, file);
+        ;
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 .putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
         List<ResolveInfo> cameraActivities = getPackageManager()
@@ -145,23 +146,18 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main,menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        createInstagramIntent("image/*",getPath());
+        createInstagramIntent("image/*", presenter.getUri());
         return true;
     }
-    String getPath(){
-        String uri="";
-        return uri;
-    }
 
 
-    private void createInstagramIntent(String type, String mediaPath){
+    private void createInstagramIntent(String type, String mediaPath) {
 
         // Create the new Intent using the 'Send' action.
         Intent share = new Intent(Intent.ACTION_SEND);
