@@ -1,10 +1,12 @@
 package com.example.user.siriusphotos.presenters;
 
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.widget.ImageView;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.example.user.siriusphotos.R;
 import com.example.user.siriusphotos.models.deepai.APIHelper;
 import com.example.user.siriusphotos.models.deepai.AnswerData;
 import com.example.user.siriusphotos.utils.Box;
@@ -21,14 +23,11 @@ public class MainPresenter extends MvpPresenter<IMainView> {
     public interface ImageReceiver {
         void acceptImage(File file);
     }
-
     private ImageViewPresenter imagePresenter;
     private RecyclerViewPresenter recyclerPresenter;
-
-    public String getUri() {
+    public String getUri(){
         return imagePresenter.getMainImg() != null ? imagePresenter.getMainImg().getAbsolutePath() : "";
     }
-
     public void setImagePresenter(ImageViewPresenter imagePresenter) {
         this.imagePresenter = imagePresenter;
     }
@@ -46,7 +45,6 @@ public class MainPresenter extends MvpPresenter<IMainView> {
         getViewState().requestImageFromGallery();
 
     }
-
     void selectImageFromCamera(ImageReceiver callback) {
         this.callback = callback;
         file = getTempPhotoFile();
@@ -71,20 +69,19 @@ public class MainPresenter extends MvpPresenter<IMainView> {
         return FileUtils.getNewImageFile(dir.getValue(), "tmp_", ".jpg");
     }
 
-    public void createFragment() {
+    public void createFragment(){
         getViewState().createFragment();
     }
-
-    public void makeToast(String s) {
-        getViewState().makeTost(s);
-    }
-
-    public void query(RecyclerViewData q) {
-        if (imagePresenter.getMainImg() == null) {
+    public void makeToast(String s){getViewState().makeTost(s);}
+    public void query(RecyclerViewData q){
+        if(imagePresenter.getMainImg() == null){
             makeToast("Файл для редактирования не выбран");
             return;
         }
-        if (q.getType() == Query.COLORIZER) {
+        recyclerPresenter.setList();
+        if(q.getType() == Query.COLORIZER){
+            q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.colorizer_dim));
+            recyclerPresenter.drawList();
             APIHelper.getInstance().colorizer(imagePresenter.getMainImg().getAbsolutePath(), new APIHelper.OnLoad() {
                 @Override
                 public void onLoad(AnswerData a) {
@@ -104,8 +101,8 @@ public class MainPresenter extends MvpPresenter<IMainView> {
                     imagePresenter.getViewState().finishLoad();
                 }
             });
-        } else if (q.getType() == Query.ADDPHOTOFORGALLEREY) {
-            selectImageFromGallery(new ImageReceiver() {
+        }else if(q.getType() == Query.ADD_PHOTO_FROM_GALLERY){
+            selectImageFromCamera(new ImageReceiver() {
                 @Override
                 public void acceptImage(File file) {
                     imagePresenter.getViewState().startLoad();
@@ -133,7 +130,7 @@ public class MainPresenter extends MvpPresenter<IMainView> {
                             });
                 }
             });
-
         }
+
     }
 }
