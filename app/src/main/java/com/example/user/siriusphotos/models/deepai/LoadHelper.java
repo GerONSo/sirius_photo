@@ -33,6 +33,7 @@ public final class LoadHelper {
 
     public interface OnLoad {
         void onLoad(File file);
+        void onFaile();
     }
 
     //save image
@@ -44,7 +45,12 @@ public final class LoadHelper {
             public void onLoad(File file) {
                 call.onLoad(file);
             }
-});
+
+            @Override
+            public void onFaile() {
+                call.onFaile();
+            }
+        });
         picasso.load(url).into(target);
     }
 

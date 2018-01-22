@@ -1,10 +1,8 @@
 package com.example.user.siriusphotos.presenters;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -42,12 +40,6 @@ public class RecyclerViewPresenter extends MvpPresenter<IRecyclerView> {
         setListClone();
     }
 
-    public void setImg(File file) {
-        list.get(0).setImg(BitmapFactory.decodeFile(file.getAbsolutePath()));
-        list.get(0).setFile(file);
-        drawList();
-    }
-
     public File getImg() {
         return list.get(0).getFile();
     }
@@ -69,6 +61,7 @@ public class RecyclerViewPresenter extends MvpPresenter<IRecyclerView> {
             list.get(i).setImg(listClone.get(i));
         }
     }
+
 
     public void setListClone() {
         listClone = new ArrayList<>();

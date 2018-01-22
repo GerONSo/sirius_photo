@@ -19,6 +19,7 @@ import java.io.IOException;
 public class MyTarget implements Target {
     interface OnLoad{
         void onLoad(File file);
+        void onFaile();
     }
     private OnLoad call;
     private String url;
@@ -51,6 +52,7 @@ public class MyTarget implements Target {
     @Override
     public void onBitmapFailed(Drawable errorDrawable) {
          Log.d("m", "FAil");
+         call.onFaile();
     }
 
     @Override

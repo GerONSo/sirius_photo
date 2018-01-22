@@ -22,22 +22,34 @@ public class ImageViewPresenter extends MvpPresenter<IImageView> {
 
     private MainPresenter mainPresenter;
     private File mainImg;
+
     public void setMainPresenter(MainPresenter mainPresenter) {
         this.mainPresenter = mainPresenter;
         mainPresenter.setImagePresenter(this);
     }
+
     public void setImage(Bitmap file) {
         getViewState().setImage(file);
     }
-    public void loadImage(AnswerData answerData){
+
+    public void loadImage(AnswerData answerData) {
         LoadHelper.getInstance().imageDownload(answerData.url, new LoadHelper.OnLoad() {
             @Override
             public void onLoad(File file) {
-                Log.d("Ok", "Callback");
-                setImage(file);
+                    Log.d("Ok", "Callback");
+                    setImage(file);
+
+                getViewState().finishLoad();
+            }
+
+            @Override
+            public void onFaile() {
+                mainPresenter.makeToast("Не удалось загрузить изображение пожалуйста проверьте подключение к интернету");
+                getViewState().finishLoad();
             }
         });
     }
+
     public File getMainImg() {
         return mainImg;
     }
@@ -48,6 +60,7 @@ public class ImageViewPresenter extends MvpPresenter<IImageView> {
         getViewState().getViewSize(size);
         int maxSide = Math.max(size.x, size.y);
         Bitmap bitmap = null;
+        mainPresenter.defoltList();
         Log.d("mytag", mainImg.getAbsolutePath());
         try {
             bitmap = ImageUtils.getScaledBitmap(mainImg, maxSide, maxSide);
@@ -66,12 +79,21 @@ public class ImageViewPresenter extends MvpPresenter<IImageView> {
             }
         });
     }
-    public void selectImageFromCamera(){
+
+    public void selectImageFromCamera() {
         mainPresenter.selectImageFromCamera(new MainPresenter.ImageReceiver() {
             @Override
             public void acceptImage(File file) {
                 setImage(file);
             }
         });
+    }
+
+    public void finishLoad() {
+        getViewState().finishLoad();
+    }
+
+    public void startLoad() {
+        getViewState().startLoad();
     }
 }

@@ -2,7 +2,6 @@ package com.example.user.siriusphotos.presenters;
 
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.widget.ImageView;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -19,6 +18,11 @@ import java.io.File;
 
 @InjectViewState
 public class MainPresenter extends MvpPresenter<IMainView> {
+
+    public void defoltList() {
+        recyclerPresenter.setList();
+        recyclerPresenter.drawList();
+    }
 
     public interface ImageReceiver {
         void acceptImage(File file);
@@ -73,59 +77,58 @@ public class MainPresenter extends MvpPresenter<IMainView> {
         getViewState().createFragment();
     }
     public void makeToast(String s){getViewState().makeTost(s);}
-    public void query(RecyclerViewData q){
+    public void query(final RecyclerViewData q){
         if(imagePresenter.getMainImg() == null){
             makeToast("Файл для редактирования не выбран");
             return;
         }
         recyclerPresenter.setList();
         if(q.getType() == Query.COLORIZER){
+            imagePresenter.startLoad();
             q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.colorizer_dim));
             recyclerPresenter.drawList();
             APIHelper.getInstance().colorizer(imagePresenter.getMainImg().getAbsolutePath(), new APIHelper.OnLoad() {
                 @Override
                 public void onLoad(AnswerData a) {
                     imagePresenter.loadImage(a);
-                    imagePresenter.getViewState().finishLoad();
                 }
 
                 @Override
                 public void onFailedLoad() {
                     getViewState().makeTost("Сервер временно не доступен. \nПроверьте подключение к интернету\n Или повторите попытку пойзже");
-                    imagePresenter.getViewState().finishLoad();
+                    imagePresenter.finishLoad();
                 }
 
                 @Override
                 public void emptyFile() {
                     getViewState().makeTost("Файл для редактирования не выбран");
-                    imagePresenter.getViewState().finishLoad();
+                    imagePresenter.finishLoad();
                 }
             });
         }else if(q.getType() == Query.ADD_PHOTO_FROM_GALLERY){
-            selectImageFromCamera(new ImageReceiver() {
+            selectImageFromGallery(new ImageReceiver() {
                 @Override
                 public void acceptImage(File file) {
-                    imagePresenter.getViewState().startLoad();
-                    recyclerPresenter.setImg(file);
+                    imagePresenter.startLoad();
+                    q.setImg(BitmapFactory.decodeFile(file.getAbsolutePath()));
                     APIHelper.getInstance().fastStyletransfer(imagePresenter.getMainImg(), recyclerPresenter.getImg(),
                             new APIHelper.OnLoad() {
 
                                 @Override
                                 public void onLoad(AnswerData a) {
                                     imagePresenter.loadImage(a);
-                                    imagePresenter.getViewState().finishLoad();
                                 }
 
                                 @Override
                                 public void onFailedLoad() {
                                     getViewState().makeTost("Сервер временно не доступен. \nПроверьте подключение к интернету\n Или повторите попытку пойзже");
-                                    imagePresenter.getViewState().finishLoad();
+                                    imagePresenter.finishLoad();
                                 }
 
                                 @Override
                                 public void emptyFile() {
                                     getViewState().makeTost("Файл для редактирования не выбран");
-                                    imagePresenter.getViewState().finishLoad();
+                                    imagePresenter.finishLoad();
                                 }
                             });
                 }
