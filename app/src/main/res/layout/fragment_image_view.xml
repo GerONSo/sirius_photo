@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/image_view"
-        android:scaleType="centerCrop"
+        android:scaleType="fitCenter"
         />
     <android.support.design.widget.FloatingActionButton
         android:layout_width="@dimen/floating_action_bar_size"

@@ -5,7 +5,11 @@ package com.example.user.siriusphotos.utils;
  */
 
 public enum Query {
-    ADDPHOTOFORGALLEREY,
+    ADD_PHOTO_FROM_GALLERY,
     COLORIZER,
-    STYLES
+    STARRY_NIGHT,
+    THE_SCREAM,
+    WATER_LILIES,
+    DOGS_PLAYING_POKER
+
 }

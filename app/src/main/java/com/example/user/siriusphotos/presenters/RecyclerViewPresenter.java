@@ -1,7 +1,10 @@
 package com.example.user.siriusphotos.presenters;
 
+import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -17,24 +20,61 @@ import java.util.ArrayList;
 public class RecyclerViewPresenter extends MvpPresenter<IRecyclerView> {
     private MainPresenter mainPresenter;
     private ArrayList<RecyclerViewData> list;
+    private ArrayList<Bitmap> listClone;
+
+    public Resources getResources() {
+        return resources;
+    }
+
+    private Resources resources;
+
     public void setMainPresenter(MainPresenter mainPresenter, Resources resource) {
         this.mainPresenter = mainPresenter;
+        this.resources = resource;
         mainPresenter.setRecyclerPresenter(this);
         list = new ArrayList<>();
-        list.add(new RecyclerViewData(BitmapFactory.decodeResource(resource, R.drawable.colorizer), "add", Query.ADDPHOTOFORGALLEREY));
+        list.add(getBitmap(R.drawable.add, "Own Effect", Query.ADD_PHOTO_FROM_GALLERY));
+        list.add(getBitmap(R.drawable.colorizer, "Colorizer", Query.COLORIZER));
+        list.add(getBitmap(R.drawable.the_starry_night, "Starry night", Query.STARRY_NIGHT));
+        list.add(getBitmap(R.drawable.the_scream, "The Scream", Query.THE_SCREAM));
+        list.add(getBitmap(R.drawable.water_lilies, "Water Lilies", Query.WATER_LILIES));
+        list.add(getBitmap(R.drawable.dogs_playing_poker, "Poker Dogs", Query.DOGS_PLAYING_POKER));
+        setListClone();
     }
-    public void setImg(File file){
+
+    public void setImg(File file) {
         list.get(0).setImg(BitmapFactory.decodeFile(file.getAbsolutePath()));
         list.get(0).setFile(file);
         drawList();
     }
-    public File getImg(){
+
+    public File getImg() {
         return list.get(0).getFile();
     }
-    public void drawList(){
+
+    public void drawList() {
         getViewState().createList(list);
     }
-    public void query(RecyclerViewData data){
+
+    public void query(RecyclerViewData data) {
         mainPresenter.query(data);
     }
+
+    private RecyclerViewData getBitmap(int id, String name, Query query) {
+        return new RecyclerViewData(BitmapFactory.decodeResource(resources, id), name, query);
+    }
+
+    public void setList() {
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setImg(listClone.get(i));
+        }
+    }
+
+    public void setListClone() {
+        listClone = new ArrayList<>();
+        for (RecyclerViewData data : list) {
+            listClone.add(data.getImg());
+        }
+    }
+
 }
