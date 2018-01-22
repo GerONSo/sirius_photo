@@ -35,7 +35,6 @@ public class ImageViewPresenter extends MvpPresenter<IImageView> {
             public void onLoad(File file) {
                 Log.d("Ok", "Callback");
                 setImage(file);
-
             }
         });
     }

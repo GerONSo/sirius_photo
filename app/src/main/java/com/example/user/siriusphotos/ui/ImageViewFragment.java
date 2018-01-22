@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -25,7 +26,7 @@ public class ImageViewFragment extends MvpAppCompatFragment implements IImageVie
 
     private ImageView imageView;
     private FloatingActionButton photoBtn;
-
+    private ProgressBar progressBar;
     @InjectPresenter
     ImageViewPresenter presenter;
 
@@ -43,6 +44,18 @@ public class ImageViewFragment extends MvpAppCompatFragment implements IImageVie
     @Override
     public void getViewSize(Point size) {
         size.set(imageView.getWidth(), imageView.getHeight());
+    }
+
+    @Override
+    public void startLoad() {
+        imageView.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void finishLoad() {
+        progressBar.setVisibility(View.GONE);
+        imageView.setVisibility(View.VISIBLE);
     }
 
 
@@ -72,6 +85,7 @@ public class ImageViewFragment extends MvpAppCompatFragment implements IImageVie
             presenter.setImage(bitmap);
         }
         imageView = view.findViewById(R.id.image_view);
+        progressBar = view.findViewById(R.id.progress_bar);
         photoBtn = view.findViewById(R.id.camera_button);
         photoBtn.setOnClickListener(new View.OnClickListener() {
             @Override

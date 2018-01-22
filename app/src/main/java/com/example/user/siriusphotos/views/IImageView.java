@@ -15,6 +15,13 @@ import java.io.File;
 public interface IImageView extends MvpView {
     @StateStrategyType(AddToEndSingleStrategy.class)
     void setImage(Bitmap img);
+
     @StateStrategyType(SkipStrategy.class)
     void getViewSize(Point size);
+
+    @StateStrategyType(AddToEndSingleStrategy.class)
+    void startLoad();
+
+    @StateStrategyType(AddToEndSingleStrategy.class)
+    void finishLoad();
 }

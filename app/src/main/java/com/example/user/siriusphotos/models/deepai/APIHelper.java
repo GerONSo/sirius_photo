@@ -3,6 +3,7 @@ package com.example.user.siriusphotos.models.deepai;
 import android.util.Log;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
@@ -24,7 +25,7 @@ public class APIHelper {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor)
-                .readTimeout(3, TimeUnit.MINUTES)
+                .readTimeout(5, TimeUnit.MINUTES)
                 .writeTimeout(1, TimeUnit.MINUTES)
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
@@ -92,17 +93,26 @@ public class APIHelper {
             callback.emptyFile();
             return;
         }
+        ArrayList<MultipartBody.Part> fileList = new ArrayList<>();
+
         RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), file1);
-        RequestBody reqFile2 = RequestBody.create(MediaType.parse("multipart/form-data"), file2);
         MultipartBody.Part body1 = MultipartBody.Part.createFormData("image1", file1.getName(), reqFile1);
+        fileList.add(body1);
+ ;
+        RequestBody reqFile2 = RequestBody.create(MediaType.parse("multipart/form-data"), file2);
         MultipartBody.Part body2 = MultipartBody.Part.createFormData("image2", file2.getName(), reqFile2);
-        Call<AnswerData> result = service.fastStyleTransfer(body1, body2);
+        fileList.add(body2);
+
+        Call<AnswerData> result = service.fastStyleTransfer(fileList);
         result.enqueue(new Callback<AnswerData>() {
             @Override
             public void onResponse(Call<AnswerData> call, Response<AnswerData> response) {
                 Log.d("fastStyle", "Ok");
                 if (response.body().url != null)
                     callback.onLoad(response.body());
+                else{
+                    callback.onFailedLoad();
+                }
             }
 
             @Override

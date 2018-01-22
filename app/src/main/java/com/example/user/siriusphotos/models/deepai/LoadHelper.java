@@ -44,7 +44,7 @@ public final class LoadHelper {
             public void onLoad(File file) {
                 call.onLoad(file);
             }
-        });
+});
         picasso.load(url).into(target);
     }
 

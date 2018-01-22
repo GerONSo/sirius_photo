@@ -6,11 +6,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/image_view_fragment"
     tools:context="com.example.user.siriusphotos.ui.ImageViewFragment">
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/image_view"
         android:scaleType="centerCrop"
+        android:visibility="visible"
         />
     <android.support.design.widget.FloatingActionButton
         android:layout_width="@dimen/floating_action_bar_size"

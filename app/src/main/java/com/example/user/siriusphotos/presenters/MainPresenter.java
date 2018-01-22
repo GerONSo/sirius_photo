@@ -85,27 +85,30 @@ public class MainPresenter extends MvpPresenter<IMainView> {
             return;
         }
         if (q.getType() == Query.COLORIZER) {
-
             APIHelper.getInstance().colorizer(imagePresenter.getMainImg().getAbsolutePath(), new APIHelper.OnLoad() {
                 @Override
                 public void onLoad(AnswerData a) {
                     imagePresenter.loadImage(a);
+                    imagePresenter.getViewState().finishLoad();
                 }
 
                 @Override
                 public void onFailedLoad() {
                     getViewState().makeTost("Сервер временно не доступен. \nПроверьте подключение к интернету\n Или повторите попытку пойзже");
+                    imagePresenter.getViewState().finishLoad();
                 }
 
                 @Override
                 public void emptyFile() {
                     getViewState().makeTost("Файл для редактирования не выбран");
+                    imagePresenter.getViewState().finishLoad();
                 }
             });
         } else if (q.getType() == Query.ADDPHOTOFORGALLEREY) {
             selectImageFromGallery(new ImageReceiver() {
                 @Override
                 public void acceptImage(File file) {
+                    imagePresenter.getViewState().startLoad();
                     recyclerPresenter.setImg(file);
                     APIHelper.getInstance().fastStyletransfer(imagePresenter.getMainImg(), recyclerPresenter.getImg(),
                             new APIHelper.OnLoad() {
@@ -113,16 +116,19 @@ public class MainPresenter extends MvpPresenter<IMainView> {
                                 @Override
                                 public void onLoad(AnswerData a) {
                                     imagePresenter.loadImage(a);
+                                    imagePresenter.getViewState().finishLoad();
                                 }
 
                                 @Override
                                 public void onFailedLoad() {
                                     getViewState().makeTost("Сервер временно не доступен. \nПроверьте подключение к интернету\n Или повторите попытку пойзже");
+                                    imagePresenter.getViewState().finishLoad();
                                 }
 
                                 @Override
                                 public void emptyFile() {
                                     getViewState().makeTost("Файл для редактирования не выбран");
+                                    imagePresenter.getViewState().finishLoad();
                                 }
                             });
                 }

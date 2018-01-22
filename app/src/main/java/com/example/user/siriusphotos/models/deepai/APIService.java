@@ -1,5 +1,7 @@
 package com.example.user.siriusphotos.models.deepai;
 
+import java.util.List;
+
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Headers;
@@ -22,7 +24,7 @@ public interface APIService {
     @Headers("api-key: 24f81b43-d622-4a70-8e6a-7cd01e631550")
     @POST("/api/fast-style-transfer")
     @Multipart
-    Call<AnswerData> fastStyleTransfer(@Part MultipartBody.Part image1, @Part MultipartBody.Part image2);
+    Call<AnswerData> fastStyleTransfer(@Part List<MultipartBody.Part> part);
 
 
 }

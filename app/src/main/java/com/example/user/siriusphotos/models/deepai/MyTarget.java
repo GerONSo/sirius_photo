@@ -50,7 +50,7 @@ public class MyTarget implements Target {
 
     @Override
     public void onBitmapFailed(Drawable errorDrawable) {
-        Log.d("m", "FAil");
+         Log.d("m", "FAil");
     }
 
     @Override
