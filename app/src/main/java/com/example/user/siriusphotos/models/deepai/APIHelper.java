@@ -20,7 +20,7 @@ public class APIHelper {
     private static final String HOST = "https://api.deepai.org/";
     private static APIHelper instance;
 
-    private Retrofit getRetrofit(){
+    private Retrofit getRetrofit() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor)
@@ -35,29 +35,32 @@ public class APIHelper {
         return retrofit;
     }
 
-    public interface OnLoad{
+    public interface OnLoad {
         void onLoad(AnswerData a);
+
         void onFailedLoad();
+
         void emptyFile();
     }
 
 
-    private APIHelper(){}
+    private APIHelper() {
+    }
 
-    public static APIHelper getInstance(){
-        if(instance == null){
+    public static APIHelper getInstance() {
+        if (instance == null) {
             instance = new APIHelper();
         }
         return instance;
     }
 
-
-    public void CNMRF(String imageContent, String imageStyle, final OnLoad callback){
+    //на данном этапе API не может реализовать этот метод поэтому использование данного метода приведет к краху приложения
+    public void CNMRF(String imageContent, String imageStyle, final OnLoad callback) {
         Retrofit retrofit = getRetrofit();
         APIService service = retrofit.create(APIService.class);
         File imgContent = new File(imageContent);
         File imgStyle = new File(imageStyle);
-        if(!imgContent.isFile() || !imgStyle.isFile()){
+        if (!imgContent.isFile() || !imgStyle.isFile()) {
             callback.emptyFile();
             return;
         }
@@ -80,26 +83,53 @@ public class APIHelper {
         });
     }
 
-    public void colorizer(String uri, final OnLoad callback){
 
-
+    public void fastStyletransfer(File file1, File file2, final OnLoad callback) {
         Retrofit retrofit = getRetrofit();
         APIService service = retrofit.create(APIService.class);
-        File file = new File(uri);
-        Log.i("uri",file.getPath());
-        if(!file.isFile()){
-            Log.d("file","empty file");
+        if (!file1.isFile() || !file2.isFile()) {
+            Log.d("file", "empty file");
             callback.emptyFile();
             return;
         }
+        RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), file1);
+        RequestBody reqFile2 = RequestBody.create(MediaType.parse("multipart/form-data"), file2);
+        MultipartBody.Part body1 = MultipartBody.Part.createFormData("image1", file1.getName(), reqFile1);
+        MultipartBody.Part body2 = MultipartBody.Part.createFormData("image2", file2.getName(), reqFile2);
+        Call<AnswerData> result = service.fastStyleTransfer(body1, body2);
+        result.enqueue(new Callback<AnswerData>() {
+            @Override
+            public void onResponse(Call<AnswerData> call, Response<AnswerData> response) {
+                Log.d("fastStyle", "Ok");
+                if (response.body().url != null)
+                    callback.onLoad(response.body());
+            }
 
+            @Override
+            public void onFailure(Call<AnswerData> call, Throwable t) {
+                Log.d("fastStyle", "YOU LOOSE");
+                callback.onFailedLoad();
+            }
+        });
+    }
+
+    public void colorizer(String uri, final OnLoad callback) {
+        Retrofit retrofit = getRetrofit();
+        APIService service = retrofit.create(APIService.class);
+        File file = new File(uri);
+        Log.i("uri", file.getPath());
+        if (!file.isFile()) {
+            Log.d("file", "empty file");
+            callback.emptyFile();
+            return;
+        }
         RequestBody reqFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), reqFile);
         Call<AnswerData> result = service.colorizer(body);
         result.enqueue(new Callback<AnswerData>() {
             @Override
             public void onResponse(Call<AnswerData> call, Response<AnswerData> response) {
-               Log.d("colorizer", "Ok");
+                Log.d("colorizer", "Ok");
                 callback.onLoad(response.body());
             }
 

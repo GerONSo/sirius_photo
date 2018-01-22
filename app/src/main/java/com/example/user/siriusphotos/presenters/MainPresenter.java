@@ -1,6 +1,7 @@
 package com.example.user.siriusphotos.presenters;
 
 import android.net.Uri;
+import android.widget.ImageView;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -20,11 +21,14 @@ public class MainPresenter extends MvpPresenter<IMainView> {
     public interface ImageReceiver {
         void acceptImage(File file);
     }
+
     private ImageViewPresenter imagePresenter;
     private RecyclerViewPresenter recyclerPresenter;
-    public String getUri(){
+
+    public String getUri() {
         return imagePresenter.getMainImg() != null ? imagePresenter.getMainImg().getAbsolutePath() : "";
     }
+
     public void setImagePresenter(ImageViewPresenter imagePresenter) {
         this.imagePresenter = imagePresenter;
     }
@@ -42,6 +46,7 @@ public class MainPresenter extends MvpPresenter<IMainView> {
         getViewState().requestImageFromGallery();
 
     }
+
     void selectImageFromCamera(ImageReceiver callback) {
         this.callback = callback;
         file = getTempPhotoFile();
@@ -66,16 +71,21 @@ public class MainPresenter extends MvpPresenter<IMainView> {
         return FileUtils.getNewImageFile(dir.getValue(), "tmp_", ".jpg");
     }
 
-    public void createFragment(){
+    public void createFragment() {
         getViewState().createFragment();
     }
-    public void makeToast(String s){getViewState().makeTost(s);}
-    public void query(RecyclerViewData q){
-        if(imagePresenter.getMainImg() == null){
+
+    public void makeToast(String s) {
+        getViewState().makeTost(s);
+    }
+
+    public void query(RecyclerViewData q) {
+        if (imagePresenter.getMainImg() == null) {
             makeToast("Файл для редактирования не выбран");
             return;
         }
-        if(q.getType() == Query.COLORIZER){
+        if (q.getType() == Query.COLORIZER) {
+
             APIHelper.getInstance().colorizer(imagePresenter.getMainImg().getAbsolutePath(), new APIHelper.OnLoad() {
                 @Override
                 public void onLoad(AnswerData a) {
@@ -92,13 +102,32 @@ public class MainPresenter extends MvpPresenter<IMainView> {
                     getViewState().makeTost("Файл для редактирования не выбран");
                 }
             });
-        }else if(q.getType() == Query.ADDPHOTOFORGALLEREY){
+        } else if (q.getType() == Query.ADDPHOTOFORGALLEREY) {
             selectImageFromGallery(new ImageReceiver() {
                 @Override
                 public void acceptImage(File file) {
                     recyclerPresenter.setImg(file);
+                    APIHelper.getInstance().fastStyletransfer(imagePresenter.getMainImg(), recyclerPresenter.getImg(),
+                            new APIHelper.OnLoad() {
+
+                                @Override
+                                public void onLoad(AnswerData a) {
+                                    imagePresenter.loadImage(a);
+                                }
+
+                                @Override
+                                public void onFailedLoad() {
+                                    getViewState().makeTost("Сервер временно не доступен. \nПроверьте подключение к интернету\n Или повторите попытку пойзже");
+                                }
+
+                                @Override
+                                public void emptyFile() {
+                                    getViewState().makeTost("Файл для редактирования не выбран");
+                                }
+                            });
                 }
             });
+
         }
     }
 }

@@ -22,6 +22,10 @@ public class RecyclerViewData {
         return img;
     }
 
+    public File getFile() {
+        return file;
+    }
+
     public Query getType() {
         return type;
     }

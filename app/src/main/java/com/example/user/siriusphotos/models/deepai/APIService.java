@@ -19,4 +19,10 @@ public interface APIService {
     @Multipart
     Call<AnswerData> CNNMRF(@Part MultipartBody.Part content_image, @Part MultipartBody.Part style_img);
 
+    @Headers("api-key: 24f81b43-d622-4a70-8e6a-7cd01e631550")
+    @POST("/api/fast-style-transfer")
+    @Multipart
+    Call<AnswerData> fastStyleTransfer(@Part MultipartBody.Part image1, @Part MultipartBody.Part image2);
+
+
 }

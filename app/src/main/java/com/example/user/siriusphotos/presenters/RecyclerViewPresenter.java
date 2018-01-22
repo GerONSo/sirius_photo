@@ -28,6 +28,9 @@ public class RecyclerViewPresenter extends MvpPresenter<IRecyclerView> {
         list.get(0).setFile(file);
         drawList();
     }
+    public File getImg(){
+        return list.get(0).getFile();
+    }
     public void drawList(){
         getViewState().createList(list);
     }
