@@ -60,7 +60,6 @@ public class ImageViewPresenter extends MvpPresenter<IImageView> {
         getViewState().getViewSize(size);
         int maxSide = Math.max(size.x, size.y);
         Bitmap bitmap = null;
-        mainPresenter.defoltList();
         Log.d("mytag", mainImg.getAbsolutePath());
         try {
             bitmap = ImageUtils.getScaledBitmap(mainImg, maxSide, maxSide);

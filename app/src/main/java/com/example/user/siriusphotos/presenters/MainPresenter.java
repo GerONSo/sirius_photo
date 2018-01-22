@@ -19,11 +19,6 @@ import java.io.File;
 @InjectViewState
 public class MainPresenter extends MvpPresenter<IMainView> {
 
-    public void defoltList() {
-        recyclerPresenter.setList();
-        recyclerPresenter.drawList();
-    }
-
     public interface ImageReceiver {
         void acceptImage(File file);
     }
@@ -110,7 +105,7 @@ public class MainPresenter extends MvpPresenter<IMainView> {
                 @Override
                 public void acceptImage(File file) {
                     imagePresenter.startLoad();
-                    q.setImg(BitmapFactory.decodeFile(file.getAbsolutePath()));
+                    q.setFile(file);
                     APIHelper.getInstance().fastStyletransfer(imagePresenter.getMainImg(), recyclerPresenter.getImg(),
                             new APIHelper.OnLoad() {
 

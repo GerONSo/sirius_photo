@@ -1,6 +1,7 @@
 package com.example.user.siriusphotos.utils;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import java.io.File;
 
@@ -16,6 +17,7 @@ public class RecyclerViewData {
 
     public void setFile(File file) {
         this.file = file;
+        img = BitmapFactory.decodeFile(file.getAbsolutePath());
     }
 
     public Bitmap getImg() {
