@@ -11,5 +11,7 @@ public enum Query {
     WAVE,
     RAIN_PRINCESS,
     THE_SCREAM,
+    TO_GRAYSCALE,
+    TO_INVERT,
     DEVELOPMENT
 }

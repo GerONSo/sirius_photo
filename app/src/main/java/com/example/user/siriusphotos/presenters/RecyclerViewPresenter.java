@@ -37,7 +37,7 @@ public class RecyclerViewPresenter extends MvpPresenter<IRecyclerView> {
         list.add(getBitmap(R.drawable.la_muse, "La Muse", Query.LA_MUSE));
         list.add(getBitmap(R.drawable.wave, "Wave", Query.WAVE));
         list.add(getBitmap(R.drawable.rain_princess, "Rain Princess", Query.RAIN_PRINCESS));
-        list.add(getBitmap(R.drawable.the_scream, "The Scream", Query.THE_SCREAM));
+        list.add(getBitmap(R.drawable.the_scream, "The Scream", Query.TO_INVERT));
 
         setListClone();
     }

@@ -7,6 +7,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.example.user.siriusphotos.R;
 import com.example.user.siriusphotos.models.deepai.AnswerData;
+import com.example.user.siriusphotos.models.deepai.OflineQuery;
 import com.example.user.siriusphotos.models.deepai.QueryHelper;
 import com.example.user.siriusphotos.utils.Box;
 import com.example.user.siriusphotos.utils.FileUtils;
@@ -29,9 +30,11 @@ public class MainPresenter extends MvpPresenter<IMainView> {
     public interface ImageReceiver {
         void acceptImage(File file);
     }
-    public void setDefoltList(){
+
+    public void setDefoltList() {
         recyclerPresenter.setList();
     }
+
     public void startLoad() {
         imagePresenter.startLoad();
     }
@@ -124,22 +127,34 @@ public class MainPresenter extends MvpPresenter<IMainView> {
             q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.water_lilies_dim));
             recyclerPresenter.update();
             queryHelper.wawe(imagePresenter.getMainImg());
-        }else if(q.getType() == Query.RAIN_PRINCESS){
+        } else if (q.getType() == Query.RAIN_PRINCESS) {
             imagePresenter.startLoad();
             q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.rain_princess_dim));
             recyclerPresenter.update();
             queryHelper.rainPrincess(imagePresenter.getMainImg());
-        }else if(q.getType() == Query.THE_SCREAM){
+        } else if (q.getType() == Query.THE_SCREAM) {
             imagePresenter.startLoad();
             q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.the_scream_dim));
             recyclerPresenter.update();
             queryHelper.scream(imagePresenter.getMainImg());
-        }else if(q.getType() == Query.DEEP_DREAM){
+        } else if (q.getType() == Query.DEEP_DREAM) {
             imagePresenter.startLoad();
             q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.dogs_playing_poker_dim));
             recyclerPresenter.update();
             queryHelper.deapDream(imagePresenter.getMainImg());
-        }else{
+        } else if (q.getType() == Query.TO_GRAYSCALE) {
+            imagePresenter.startLoad();
+            //q.setImg();
+            recyclerPresenter.update();
+            imagePresenter.setImage(OflineQuery.getInstance().toGrayscale(BitmapFactory.decodeFile(imagePresenter.getMainImg().getAbsolutePath())));
+            imagePresenter.finishLoad();
+        } else if (q.getType() == Query.TO_INVERT) {
+            imagePresenter.startLoad();
+            //q.setImg();
+            recyclerPresenter.update();
+            imagePresenter.setImage(OflineQuery.getInstance().toInvert(BitmapFactory.decodeFile(imagePresenter.getMainImg().getAbsolutePath())));
+            imagePresenter.finishLoad();
+        } else {
             makeToast("Данная функция находиться в разработке");
         }
 
