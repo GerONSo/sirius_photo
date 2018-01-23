@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.siriusphotos.R;
+import com.example.user.siriusphotos.utils.Query;
 import com.example.user.siriusphotos.utils.RecyclerViewData;
 
 import java.util.ArrayList;
