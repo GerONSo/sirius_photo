@@ -24,17 +24,20 @@ public class RecyclerViewFragment extends MvpAppCompatFragment implements IRecyc
 
     @InjectPresenter
     RecyclerViewPresenter presenter;
-
+    private PictureAdapter adapter;
     private MainPresenter mainPresenter;
     private ImageView img;
+
+    public ArrayList<RecyclerViewData> getList(){
+        return presenter.getList();
+    }
+
     public void setMainPresenter(MainPresenter mainPresenter) {
         this.mainPresenter = mainPresenter;
     }
 
     private RecyclerView listView;
-    public RecyclerViewFragment() {
-        // Required empty public constructor
-    }
+    public RecyclerViewFragment() {}
     public static RecyclerViewFragment newInstance(){
         return new RecyclerViewFragment();
     }
@@ -66,13 +69,16 @@ public class RecyclerViewFragment extends MvpAppCompatFragment implements IRecyc
     @Override
     public void createList(ArrayList<RecyclerViewData> list) {
         listView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        PictureAdapter adapter = new PictureAdapter(list, new PictureAdapter.OnItemClickListner() {
+        adapter = new PictureAdapter(this, new PictureAdapter.OnItemClickListner() {
             @Override
             public void onItemClickListner(RecyclerViewData data) {
                 presenter.query(data);
             }
         });
         listView.setAdapter(adapter);
-
+    }
+    @Override
+    public void update(){
+        adapter.notifyDataSetChanged();
     }
 }

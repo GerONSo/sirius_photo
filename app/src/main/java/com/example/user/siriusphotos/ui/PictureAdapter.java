@@ -19,8 +19,7 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
         void onItemClickListner(RecyclerViewData data);
     }
 
-    private ArrayList<RecyclerViewData> mDataset;
-    private ImageView imageView;
+    private RecyclerViewFragment fragment;
     private OnItemClickListner call;
     private static final int PHOTO = 0;
     private static final int GALLERY = 1;
@@ -39,9 +38,11 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
         }
     }
 
-    public PictureAdapter(ArrayList<RecyclerViewData> myDataset, OnItemClickListner callback) {
-        mDataset = myDataset;
+
+    public PictureAdapter(RecyclerViewFragment fragment, OnItemClickListner callback) {
+        this.fragment = fragment;
         call = callback;
+
     }
 
     @Override
@@ -53,19 +54,19 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.imageView.setImageBitmap(mDataset.get(position).getImg());
-        holder.textView.setText(mDataset.get(position).getNameVis());
+        holder.imageView.setImageBitmap(fragment.getList().get(position).getImg());
+        holder.textView.setText(fragment.getList().get(position).getNameVis());
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                call.onItemClickListner(mDataset.get(position));
+                call.onItemClickListner(fragment.getList().get(position));
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        return fragment.getList().size();
     }
 
 }

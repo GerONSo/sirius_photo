@@ -31,7 +31,6 @@ public class MainPresenter extends MvpPresenter<IMainView> {
     }
     public void setDefoltList(){
         recyclerPresenter.setList();
-        recyclerPresenter.drawList();
     }
     public void startLoad() {
         imagePresenter.startLoad();
@@ -113,32 +112,32 @@ public class MainPresenter extends MvpPresenter<IMainView> {
         if (q.getType() == Query.COLORIZER) {
             startLoad();
             q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.colorizer_dim));
-            recyclerPresenter.drawList();
+            recyclerPresenter.update();
             queryHelper.colorizer(imagePresenter.getMainImg());
         } else if (q.getType() == Query.LA_MUSE) {
             imagePresenter.startLoad();
             q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.la_muse_dim));
-            recyclerPresenter.drawList();
+            recyclerPresenter.update();
             queryHelper.laMuse(imagePresenter.getMainImg());
         } else if (q.getType() == Query.WAVE) {
             imagePresenter.startLoad();
-            q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.wave_dim));
-            recyclerPresenter.drawList();
+            q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.water_lilies_dim));
+            recyclerPresenter.update();
             queryHelper.wawe(imagePresenter.getMainImg());
         }else if(q.getType() == Query.RAIN_PRINCESS){
             imagePresenter.startLoad();
             q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.rain_princess_dim));
-            recyclerPresenter.drawList();
+            recyclerPresenter.update();
             queryHelper.rainPrincess(imagePresenter.getMainImg());
         }else if(q.getType() == Query.THE_SCREAM){
             imagePresenter.startLoad();
             q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.the_scream_dim));
-            recyclerPresenter.drawList();
+            recyclerPresenter.update();
             queryHelper.scream(imagePresenter.getMainImg());
         }else if(q.getType() == Query.DEEP_DREAM){
             imagePresenter.startLoad();
-            q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.deep_dream_dim));
-            recyclerPresenter.drawList();
+            q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.dogs_playing_poker_dim));
+            recyclerPresenter.update();
             queryHelper.deapDream(imagePresenter.getMainImg());
         }else{
             makeToast("Данная функция находиться в разработке");
