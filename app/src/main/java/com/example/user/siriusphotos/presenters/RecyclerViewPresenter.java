@@ -42,10 +42,6 @@ public class RecyclerViewPresenter extends MvpPresenter<IRecyclerView> {
         setListClone();
     }
 
-    public File getImg() {
-        return list.get(0).getFile();
-    }
-
     public void drawList() {
         getViewState().createList(list);
     }
@@ -72,4 +68,11 @@ public class RecyclerViewPresenter extends MvpPresenter<IRecyclerView> {
         }
     }
 
+    public void update(){
+        getViewState().update();
+    }
+
+    public ArrayList<RecyclerViewData> getList() {
+        return list;
+    }
 }
