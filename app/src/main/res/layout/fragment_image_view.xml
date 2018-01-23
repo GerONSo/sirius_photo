@@ -5,7 +5,8 @@
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/image_view_fragment"
-    tools:context="com.example.user.siriusphotos.ui.ImageViewFragment">
+    tools:context="com.example.user.siriusphotos.ui.ImageViewFragment"
+    android:background="@color/icons">
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -15,7 +16,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:indeterminateTint="@color/primary"/>
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

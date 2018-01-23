@@ -131,7 +131,7 @@ public class MainPresenter extends MvpPresenter<IMainView> {
             * */
             recyclerPresenter.drawList();
             queryHelper.laMuse(imagePresenter.getMainImg());
-        } else if (q.getType() == Query.WAWE) {
+        } else if (q.getType() == Query.WAVE) {
             imagePresenter.startLoad();
             /*
             * q.setImg();
@@ -145,14 +145,14 @@ public class MainPresenter extends MvpPresenter<IMainView> {
              */
             recyclerPresenter.drawList();
             queryHelper.rainPrincess(imagePresenter.getMainImg());
-        }else if(q.getType() == Query.SCREAM){
+        }else if(q.getType() == Query.THE_SCREAM){
             imagePresenter.startLoad();
             /*
             * q.setImg();
              */
             recyclerPresenter.drawList();
             queryHelper.scream(imagePresenter.getMainImg());
-        }else if(q.getType() == Query.DEAP_DREAM){
+        }else if(q.getType() == Query.DEEP_DREAM){
             imagePresenter.startLoad();
             /*
             * q.setImg();

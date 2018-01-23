@@ -16,7 +16,7 @@ public class QueryHelper {
     private MainPresenter mainPresenter;
 
     private final String LA_MUSE = "la-muse.ckpt";
-    private final String WAWE = "wawe.ckpt";
+    private final String WAWE = "wave.ckpt";
     private final String RAIN_PRINCESS = "rain-princess.ckpt";
     private final String SCREAM = "scream.ckpt";
 
