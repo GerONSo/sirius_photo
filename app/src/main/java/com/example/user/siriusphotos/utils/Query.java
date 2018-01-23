@@ -6,6 +6,11 @@ package com.example.user.siriusphotos.utils;
 
 public enum Query {
     ADD_PHOTO_FROM_GALLERY,
+    LA_MUSE,
+    WAWE,
+    RAIN_PRINCESS,
+    SCREAM,
+    DEAP_DREAM,
     COLORIZER,
     STARRY_NIGHT,
     THE_SCREAM,

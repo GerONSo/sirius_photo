@@ -85,10 +85,10 @@ public class APIHelper {
     }
 
 
-    public void fastStyletransfer(File file1, File file2, final OnLoad callback) {
+    public void fastStyletransfer(File file1, String style, final OnLoad callback) {
         Retrofit retrofit = getRetrofit();
         APIService service = retrofit.create(APIService.class);
-        if (!file1.isFile() || !file2.isFile()) {
+        if (!file1.isFile()) {
             Log.d("file", "empty file");
             callback.emptyFile();
             return;
@@ -96,21 +96,16 @@ public class APIHelper {
         ArrayList<MultipartBody.Part> fileList = new ArrayList<>();
 
         RequestBody reqFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), file1);
-        MultipartBody.Part body1 = MultipartBody.Part.createFormData("image1", file1.getName(), reqFile1);
-        fileList.add(body1);
- ;
-        RequestBody reqFile2 = RequestBody.create(MediaType.parse("multipart/form-data"), file2);
-        MultipartBody.Part body2 = MultipartBody.Part.createFormData("image2", file2.getName(), reqFile2);
-        fileList.add(body2);
-
-        Call<AnswerData> result = service.fastStyleTransfer(fileList);
+        MultipartBody.Part body1 = MultipartBody.Part.createFormData("image", file1.getName(), reqFile1);
+        MultipartBody.Part body2 = MultipartBody.Part.createFormData("style", style );
+        Call<AnswerData> result = service.fastStyleTransfer(body1, body2);
         result.enqueue(new Callback<AnswerData>() {
             @Override
             public void onResponse(Call<AnswerData> call, Response<AnswerData> response) {
                 Log.d("fastStyle", "Ok");
                 if (response.body().url != null)
                     callback.onLoad(response.body());
-                else{
+                else {
                     callback.onFailedLoad();
                 }
             }
@@ -123,10 +118,35 @@ public class APIHelper {
         });
     }
 
-    public void colorizer(String uri, final OnLoad callback) {
+    public void deepdream(File file, final OnLoad callback){
         Retrofit retrofit = getRetrofit();
         APIService service = retrofit.create(APIService.class);
-        File file = new File(uri);
+        Log.i("uri", file.getPath());
+        if (!file.isFile()) {
+            Log.d("file", "empty file");
+            callback.emptyFile();
+            return;
+        }
+        RequestBody reqFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), reqFile);
+        Call<AnswerData> result = service.colorizer(body);
+        result.enqueue(new Callback<AnswerData>() {
+            @Override
+            public void onResponse(Call<AnswerData> call, Response<AnswerData> response) {
+                Log.d("colorizer", "Ok");
+                callback.onLoad(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<AnswerData> call, Throwable t) {
+                Log.d("colorize", "YOU LOOSE");
+                callback.onFailedLoad();
+            }
+        });
+    }
+    public void colorizer(File file, final OnLoad callback) {
+        Retrofit retrofit = getRetrofit();
+        APIService service = retrofit.create(APIService.class);
         Log.i("uri", file.getPath());
         if (!file.isFile()) {
             Log.d("file", "empty file");

@@ -33,6 +33,7 @@ public class RecyclerViewPresenter extends MvpPresenter<IRecyclerView> {
         list = new ArrayList<>();
         list.add(getBitmap(R.drawable.add, "Own Effect", Query.ADD_PHOTO_FROM_GALLERY));
         list.add(getBitmap(R.drawable.colorizer, "Colorizer", Query.COLORIZER));
+        list.add(getBitmap(R.drawable.the_starry_night_dim, "la-muse", Query.DEAP_DREAM));
         list.add(getBitmap(R.drawable.the_starry_night, "Starry night", Query.STARRY_NIGHT));
         list.add(getBitmap(R.drawable.the_scream, "The Scream", Query.THE_SCREAM));
         list.add(getBitmap(R.drawable.water_lilies, "Water Lilies", Query.WATER_LILIES));
@@ -63,7 +64,7 @@ public class RecyclerViewPresenter extends MvpPresenter<IRecyclerView> {
     }
 
 
-    public void setListClone() {
+    private void setListClone() {
         listClone = new ArrayList<>();
         for (RecyclerViewData data : list) {
             listClone.add(data.getImg());

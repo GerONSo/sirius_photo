@@ -6,8 +6,8 @@ import android.net.Uri;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.example.user.siriusphotos.R;
-import com.example.user.siriusphotos.models.deepai.APIHelper;
 import com.example.user.siriusphotos.models.deepai.AnswerData;
+import com.example.user.siriusphotos.models.deepai.QueryHelper;
 import com.example.user.siriusphotos.utils.Box;
 import com.example.user.siriusphotos.utils.FileUtils;
 import com.example.user.siriusphotos.utils.Query;
@@ -19,14 +19,37 @@ import java.io.File;
 @InjectViewState
 public class MainPresenter extends MvpPresenter<IMainView> {
 
+    private ImageViewPresenter imagePresenter;
+    private RecyclerViewPresenter recyclerPresenter;
+    private QueryHelper queryHelper;
+
+    private ImageReceiver callback;
+    private File file;
+
     public interface ImageReceiver {
         void acceptImage(File file);
     }
-    private ImageViewPresenter imagePresenter;
-    private RecyclerViewPresenter recyclerPresenter;
-    public String getUri(){
+    public void setDefoltList(){
+        recyclerPresenter.setList();
+        recyclerPresenter.drawList();
+    }
+    public void startLoad() {
+        imagePresenter.startLoad();
+    }
+
+    public void loadImage(AnswerData a) {
+        imagePresenter.loadImage(a);
+    }
+
+    public void finishLoad() {
+        imagePresenter.finishLoad();
+    }
+
+    public String getUri() {
         return imagePresenter.getMainImg() != null ? imagePresenter.getMainImg().getAbsolutePath() : "";
     }
+
+
     public void setImagePresenter(ImageViewPresenter imagePresenter) {
         this.imagePresenter = imagePresenter;
     }
@@ -35,15 +58,13 @@ public class MainPresenter extends MvpPresenter<IMainView> {
         this.recyclerPresenter = recyclerPresenter;
     }
 
-    private ImageReceiver callback;
-    private File file;
-
     void selectImageFromGallery(ImageReceiver callback) {
         this.callback = callback;
         file = getTempPhotoFile();
         getViewState().requestImageFromGallery();
 
     }
+
     void selectImageFromCamera(ImageReceiver callback) {
         this.callback = callback;
         file = getTempPhotoFile();
@@ -68,66 +89,76 @@ public class MainPresenter extends MvpPresenter<IMainView> {
         return FileUtils.getNewImageFile(dir.getValue(), "tmp_", ".jpg");
     }
 
-    public void createFragment(){
+    public void createFragment() {
         getViewState().createFragment();
     }
-    public void makeToast(String s){getViewState().makeTost(s);}
-    public void query(final RecyclerViewData q){
-        if(imagePresenter.getMainImg() == null){
+
+    public void makeToast(String s) {
+        getViewState().makeTost(s);
+    }
+
+    public void query(final RecyclerViewData q) {
+        if (queryHelper == null) {
+            queryHelper = new QueryHelper(this);
+        }
+        if (imagePresenter.isLoad()) {
+            makeToast("Дождитесь окончания загрузки");
+            return;
+        }
+        if (imagePresenter.getMainImg() == null) {
             makeToast("Файл для редактирования не выбран");
             return;
         }
         recyclerPresenter.setList();
-        if(q.getType() == Query.COLORIZER){
-            imagePresenter.startLoad();
+        if (q.getType() == Query.COLORIZER) {
+            startLoad();
             q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.colorizer_dim));
             recyclerPresenter.drawList();
-            APIHelper.getInstance().colorizer(imagePresenter.getMainImg().getAbsolutePath(), new APIHelper.OnLoad() {
-                @Override
-                public void onLoad(AnswerData a) {
-                    imagePresenter.loadImage(a);
-                }
-
-                @Override
-                public void onFailedLoad() {
-                    getViewState().makeTost("Сервер временно не доступен. \nПроверьте подключение к интернету\n Или повторите попытку пойзже");
-                    imagePresenter.finishLoad();
-                }
-
-                @Override
-                public void emptyFile() {
-                    getViewState().makeTost("Файл для редактирования не выбран");
-                    imagePresenter.finishLoad();
-                }
-            });
-        }else if(q.getType() == Query.ADD_PHOTO_FROM_GALLERY){
+            queryHelper.colorizer(imagePresenter.getMainImg());
+        } else if (q.getType() == Query.ADD_PHOTO_FROM_GALLERY) {
             selectImageFromGallery(new ImageReceiver() {
                 @Override
                 public void acceptImage(File file) {
                     imagePresenter.startLoad();
-                    q.setFile(file);
-                    APIHelper.getInstance().fastStyletransfer(imagePresenter.getMainImg(), recyclerPresenter.getImg(),
-                            new APIHelper.OnLoad() {
+                    q.setImg(BitmapFactory.decodeFile(file.getAbsolutePath()));
 
-                                @Override
-                                public void onLoad(AnswerData a) {
-                                    imagePresenter.loadImage(a);
-                                }
-
-                                @Override
-                                public void onFailedLoad() {
-                                    getViewState().makeTost("Сервер временно не доступен. \nПроверьте подключение к интернету\n Или повторите попытку пойзже");
-                                    imagePresenter.finishLoad();
-                                }
-
-                                @Override
-                                public void emptyFile() {
-                                    getViewState().makeTost("Файл для редактирования не выбран");
-                                    imagePresenter.finishLoad();
-                                }
-                            });
                 }
             });
+        } else if (q.getType() == Query.LA_MUSE) {
+            imagePresenter.startLoad();
+            /*
+            * q.setImg();
+            * */
+            recyclerPresenter.drawList();
+            queryHelper.laMuse(imagePresenter.getMainImg());
+        } else if (q.getType() == Query.WAWE) {
+            imagePresenter.startLoad();
+            /*
+            * q.setImg();
+            * */
+            recyclerPresenter.drawList();
+            queryHelper.wawe(imagePresenter.getMainImg());
+        }else if(q.getType() == Query.RAIN_PRINCESS){
+            imagePresenter.startLoad();
+            /*
+            * q.setImg();
+             */
+            recyclerPresenter.drawList();
+            queryHelper.rainPrincess(imagePresenter.getMainImg());
+        }else if(q.getType() == Query.SCREAM){
+            imagePresenter.startLoad();
+            /*
+            * q.setImg();
+             */
+            recyclerPresenter.drawList();
+            queryHelper.scream(imagePresenter.getMainImg());
+        }else if(q.getType() == Query.DEAP_DREAM){
+            imagePresenter.startLoad();
+            /*
+            * q.setImg();
+             */
+            recyclerPresenter.drawList();
+            queryHelper.deapDream(imagePresenter.getMainImg());
         }
 
     }

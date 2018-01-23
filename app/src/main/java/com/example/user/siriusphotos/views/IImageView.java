@@ -24,4 +24,5 @@ public interface IImageView extends MvpView {
 
     @StateStrategyType(AddToEndSingleStrategy.class)
     void finishLoad();
+
 }

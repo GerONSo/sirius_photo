@@ -22,6 +22,7 @@ public class ImageViewPresenter extends MvpPresenter<IImageView> {
 
     private MainPresenter mainPresenter;
     private File mainImg;
+    private boolean isLoad;
 
     public void setMainPresenter(MainPresenter mainPresenter) {
         this.mainPresenter = mainPresenter;
@@ -36,16 +37,15 @@ public class ImageViewPresenter extends MvpPresenter<IImageView> {
         LoadHelper.getInstance().imageDownload(answerData.url, new LoadHelper.OnLoad() {
             @Override
             public void onLoad(File file) {
-                    Log.d("Ok", "Callback");
-                    setImage(file);
-
-                getViewState().finishLoad();
+                Log.d("Ok", "Callback");
+                setImage(file);
+                finishLoad();
             }
 
             @Override
             public void onFaile() {
                 mainPresenter.makeToast("Не удалось загрузить изображение пожалуйста проверьте подключение к интернету");
-                getViewState().finishLoad();
+                finishLoad();
             }
         });
     }
@@ -79,6 +79,10 @@ public class ImageViewPresenter extends MvpPresenter<IImageView> {
         });
     }
 
+    public boolean isLoad() {
+        return isLoad;
+    }
+
     public void selectImageFromCamera() {
         mainPresenter.selectImageFromCamera(new MainPresenter.ImageReceiver() {
             @Override
@@ -90,9 +94,11 @@ public class ImageViewPresenter extends MvpPresenter<IImageView> {
 
     public void finishLoad() {
         getViewState().finishLoad();
+        isLoad = false;
     }
 
     public void startLoad() {
         getViewState().startLoad();
+        isLoad = true;
     }
 }

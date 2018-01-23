@@ -30,4 +30,5 @@ public interface IMainView extends MvpView {
     @StateStrategyType(SkipStrategy.class)
     void makeTost(String s);
 
+
 }
