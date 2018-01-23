@@ -119,9 +119,8 @@ public class MainPresenter extends MvpPresenter<IMainView> {
             selectImageFromGallery(new ImageReceiver() {
                 @Override
                 public void acceptImage(File file) {
-                    imagePresenter.startLoad();
                     q.setImg(BitmapFactory.decodeFile(file.getAbsolutePath()));
-
+                    recyclerPresenter.drawList();
                 }
             });
         } else if (q.getType() == Query.LA_MUSE) {

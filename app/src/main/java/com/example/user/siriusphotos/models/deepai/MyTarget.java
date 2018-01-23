@@ -17,12 +17,15 @@ import java.io.IOException;
  */
 
 public class MyTarget implements Target {
-    interface OnLoad{
+    interface OnLoad {
         void onLoad(File file);
+
         void onFaile();
     }
+
     private OnLoad call;
     private String url;
+
     public MyTarget(String url, OnLoad call) {
         this.call = call;
         this.url = url;
@@ -34,7 +37,11 @@ public class MyTarget implements Target {
         Log.d("onBitmapLoaded", "Ok");
 
         String s[] = url.split("/");
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + s[s.length - 1]);
+        File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/photoStyle");
+        if (!dir.isDirectory()) {
+            dir.mkdir();
+        }
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/photoStyle/" + s[s.length - 1]);
         try {
             if (!file.isFile())
                 file.createNewFile();
@@ -51,8 +58,8 @@ public class MyTarget implements Target {
 
     @Override
     public void onBitmapFailed(Drawable errorDrawable) {
-         Log.d("m", "FAil");
-         call.onFaile();
+        Log.d("m", "FAil");
+        call.onFaile();
     }
 
     @Override
