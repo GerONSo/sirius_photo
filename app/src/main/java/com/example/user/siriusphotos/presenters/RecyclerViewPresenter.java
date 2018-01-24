@@ -33,13 +33,14 @@ public class RecyclerViewPresenter extends MvpPresenter<IRecyclerView> {
         list = new ArrayList<>();
         list.add(getBitmap(R.drawable.add, "Own Effect", Query.DEVELOPMENT));
         list.add(getBitmap(R.drawable.colorizer, "Colorizer", Query.COLORIZER));
-        list.add(getBitmap(R.drawable.dogs_playing_poker, "Deep Dream", Query.DEEP_DREAM));
+        list.add(getBitmap(R.drawable.deep_dream, "Deep Dream", Query.DEEP_DREAM));
         list.add(getBitmap(R.drawable.la_muse, "La Muse", Query.LA_MUSE));
         list.add(getBitmap(R.drawable.wave, "Wave", Query.WAVE));
         list.add(getBitmap(R.drawable.rain_princess, "Rain Princess", Query.RAIN_PRINCESS));
-        list.add(getBitmap(R.drawable.the_scream, "The Scream", Query.RETRO
-
-        ));
+        list.add(getBitmap(R.drawable.the_scream, "The Scream", Query.THE_SCREAM));
+        list.add(getBitmap(R.drawable.the_starry_night_locked,"Starry Night",Query.DEVELOPMENT));
+        list.add(getBitmap(R.drawable.water_lilies_locked,"Water Lilies",Query.DEVELOPMENT));
+        list.add(getBitmap(R.drawable.dogs_playing_poker_locked,"Poker Dogs",Query.DEVELOPMENT));
 
         setListClone();
     }

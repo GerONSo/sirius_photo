@@ -21,7 +21,7 @@ public class QueryHelper {
     private final String SCREAM = "scream.ckpt";
 
 
-    public void wawe(File file) {
+    public void wave(File file) {
         APIHelper.getInstance().fastStyletransfer(file, WAWE,
                 new APIHelper.OnLoad() {
 
