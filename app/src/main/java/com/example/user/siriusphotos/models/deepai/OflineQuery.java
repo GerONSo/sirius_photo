@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+import android.os.AsyncTask;
 
 import java.io.File;
 
@@ -16,14 +17,17 @@ import java.io.File;
 public final class OflineQuery {
     private static OflineQuery instance;
 
-    private OflineQuery(){}
+    private OflineQuery() {
+    }
 
-    public static OflineQuery getInstance(){
-        if(instance == null)
+    public static OflineQuery getInstance() {
+        if (instance == null)
             instance = new OflineQuery();
         return instance;
     }
+
     public File toGrayscale(Bitmap original) {
+
         Bitmap result = Bitmap.createBitmap(original.getWidth(),
                 original.getHeight(),
                 Bitmap.Config.ARGB_8888);
@@ -32,16 +36,15 @@ public final class OflineQuery {
         Canvas canvas = new Canvas(result);
         Paint paint = new Paint();
         paint.setColorFilter(new ColorMatrixColorFilter(matrix));
-        canvas.drawBitmap(original,0,0,paint);
+        canvas.drawBitmap(original, 0, 0, paint);
         return LoadHelper.getInstance().saveBitmap(result);
     }
 
 
-    public File retro(Bitmap original){
+    public File retro(Bitmap original) {
         Bitmap result = Bitmap.createBitmap(original.getWidth(),
                 original.getHeight(),
                 Bitmap.Config.ARGB_8888);
-
         ColorMatrix matrix = new ColorMatrix(new float[]{
                 0.6279345635605994f, 0.3202183420819367f, -0.03965408211312453f, 0, 9.651285835294123f,
                 0.02578397704808868f, 0.6441188644374771f, 0.03259127616149294f, 0, 7.462829176470591f,
@@ -54,11 +57,12 @@ public final class OflineQuery {
         Paint paint = new Paint();
         paint.setColorFilter(new ColorMatrixColorFilter(matrix));
 
-        canvas.drawBitmap(original,0,0,paint);
+        canvas.drawBitmap(original, 0, 0, paint);
 
         return LoadHelper.getInstance().saveBitmap(result);
     }
-    public File toInvert(Bitmap original){
+
+    public File toInvert(Bitmap original) {
         Bitmap result = Bitmap.createBitmap(original.getWidth(),
                 original.getHeight(),
                 Bitmap.Config.ARGB_8888);
@@ -75,12 +79,12 @@ public final class OflineQuery {
         Paint paint = new Paint();
         paint.setColorFilter(new ColorMatrixColorFilter(matrix));
 
-        canvas.drawBitmap(original,0,0,paint);
+        canvas.drawBitmap(original, 0, 0, paint);
 
         return LoadHelper.getInstance().saveBitmap(result);
     }
 
-    public File upColor(Bitmap original){
+    public File upColor(Bitmap original) {
         Bitmap result = Bitmap.createBitmap(original.getWidth(),
                 original.getHeight(),
                 Bitmap.Config.ARGB_8888);
@@ -97,7 +101,7 @@ public final class OflineQuery {
         Paint paint = new Paint();
         paint.setColorFilter(new ColorMatrixColorFilter(matrix));
 
-        canvas.drawBitmap(original,0,0,paint);
+        canvas.drawBitmap(original, 0, 0, paint);
 
         return LoadHelper.getInstance().saveBitmap(result);
     }

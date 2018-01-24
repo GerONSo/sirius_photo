@@ -2,6 +2,7 @@ package com.example.user.siriusphotos.presenters;
 
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -30,9 +31,11 @@ public class MainPresenter extends MvpPresenter<IMainView> {
     public interface ImageReceiver {
         void acceptImage(File file);
     }
-    public void setDefoltList(){
+
+    public void setDefoltList() {
         recyclerPresenter.setList();
     }
+
     public void startLoad() {
         imagePresenter.startLoad();
     }
@@ -125,45 +128,94 @@ public class MainPresenter extends MvpPresenter<IMainView> {
             q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.wave_dim));
             recyclerPresenter.update();
             queryHelper.wave(imagePresenter.getMainImg());
-        }else if(q.getType() == Query.RAIN_PRINCESS){
+        } else if (q.getType() == Query.RAIN_PRINCESS) {
             imagePresenter.startLoad();
             q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.rain_princess_dim));
             recyclerPresenter.update();
             queryHelper.rainPrincess(imagePresenter.getMainImg());
-        }else if(q.getType() == Query.THE_SCREAM){
+        } else if (q.getType() == Query.THE_SCREAM) {
             imagePresenter.startLoad();
             q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.the_scream_dim));
             recyclerPresenter.update();
             queryHelper.scream(imagePresenter.getMainImg());
-        }else if(q.getType() == Query.DEEP_DREAM){
+        } else if (q.getType() == Query.DEEP_DREAM) {
             imagePresenter.startLoad();
             q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.deep_dream_dim));
             recyclerPresenter.update();
             queryHelper.deapDream(imagePresenter.getMainImg());
         } else if (q.getType() == Query.TO_GRAYSCALE) {
             imagePresenter.startLoad();
-            recyclerPresenter.update();
             q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.grayscale_dim));
-            imagePresenter.setImage(OflineQuery.getInstance().toGrayscale(BitmapFactory.decodeFile(imagePresenter.getMainImg().getAbsolutePath())));
-            imagePresenter.finishLoad();
+            recyclerPresenter.update();
+            new AsyncTask<Void, Void, File>(){
+
+                @Override
+                protected void onPostExecute(File file) {
+                    super.onPostExecute(file);
+                    imagePresenter.setImage(file);
+                    imagePresenter.finishLoad();
+                }
+
+                @Override
+                protected File doInBackground(Void... voids) {
+                    return OflineQuery.getInstance().toGrayscale(BitmapFactory.decodeFile(imagePresenter.getMainImg().getAbsolutePath()));
+                }
+            }.execute();
         } else if (q.getType() == Query.TO_INVERT) {
             imagePresenter.startLoad();
-            recyclerPresenter.update();
             q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.invert_dim));
-            imagePresenter.setImage(OflineQuery.getInstance().toInvert(BitmapFactory.decodeFile(imagePresenter.getMainImg().getAbsolutePath())));
-            imagePresenter.finishLoad();
+            recyclerPresenter.update();
+            new AsyncTask<Void, Void, File>(){
+
+                @Override
+                protected void onPostExecute(File file) {
+                    super.onPostExecute(file);
+                    imagePresenter.setImage(file);
+                    imagePresenter.finishLoad();
+                }
+
+                @Override
+                protected File doInBackground(Void... voids) {
+                    return OflineQuery.getInstance().toInvert(BitmapFactory.decodeFile(imagePresenter.getMainImg().getAbsolutePath()));
+                }
+            }.execute();
+
         } else if (q.getType() == Query.RETRO) {
             imagePresenter.startLoad();
-            recyclerPresenter.update();
             q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.vintage_dim));
-            imagePresenter.setImage(OflineQuery.getInstance().retro(BitmapFactory.decodeFile(imagePresenter.getMainImg().getAbsolutePath())));
-            imagePresenter.finishLoad();
+            recyclerPresenter.update();
+            new AsyncTask<Void, Void, File>(){
+
+                @Override
+                protected void onPostExecute(File file) {
+                    super.onPostExecute(file);
+                    imagePresenter.setImage(file);
+                    imagePresenter.finishLoad();
+                }
+
+                @Override
+                protected File doInBackground(Void... voids) {
+                    return OflineQuery.getInstance().retro(BitmapFactory.decodeFile(imagePresenter.getMainImg().getAbsolutePath()));
+                }
+            }.execute();
         } else if (q.getType() == Query.UP_COLOR) {
             imagePresenter.startLoad();
-            recyclerPresenter.update();
             q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.up_color_dim));
-            imagePresenter.setImage(OflineQuery.getInstance().upColor(BitmapFactory.decodeFile(imagePresenter.getMainImg().getAbsolutePath())));
-            imagePresenter.finishLoad();
+            recyclerPresenter.update();
+            new AsyncTask<Void, Void, File>(){
+
+                @Override
+                protected void onPostExecute(File file) {
+                    super.onPostExecute(file);
+                    imagePresenter.setImage(file);
+                    imagePresenter.finishLoad();
+                }
+
+                @Override
+                protected File doInBackground(Void... voids) {
+                    return OflineQuery.getInstance().upColor(BitmapFactory.decodeFile(imagePresenter.getMainImg().getAbsolutePath()));
+                }
+            }.execute();
         } else {
             makeToast("Данная функция находиться в разработке");
         }
