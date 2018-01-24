@@ -12,6 +12,7 @@ public enum Query {
     RAIN_PRINCESS,
     THE_SCREAM,
     TO_GRAYSCALE,
-    TO_INVERT,
+    TO_INVERT,RETRO,
+    UP_COLOR,
     DEVELOPMENT
 }

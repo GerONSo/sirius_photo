@@ -154,6 +154,18 @@ public class MainPresenter extends MvpPresenter<IMainView> {
             recyclerPresenter.update();
             imagePresenter.setImage(OflineQuery.getInstance().toInvert(BitmapFactory.decodeFile(imagePresenter.getMainImg().getAbsolutePath())));
             imagePresenter.finishLoad();
+        } else if (q.getType() == Query.RETRO) {
+            imagePresenter.startLoad();
+            //q.setImg();
+            recyclerPresenter.update();
+            imagePresenter.setImage(OflineQuery.getInstance().retro(BitmapFactory.decodeFile(imagePresenter.getMainImg().getAbsolutePath())));
+            imagePresenter.finishLoad();
+        } else if (q.getType() == Query.UP_COLOR) {
+            imagePresenter.startLoad();
+            //q.setImg();
+            recyclerPresenter.update();
+            imagePresenter.setImage(OflineQuery.getInstance().upColor(BitmapFactory.decodeFile(imagePresenter.getMainImg().getAbsolutePath())));
+            imagePresenter.finishLoad();
         } else {
             makeToast("Данная функция находиться в разработке");
         }
