@@ -137,31 +137,31 @@ public class MainPresenter extends MvpPresenter<IMainView> {
             queryHelper.scream(imagePresenter.getMainImg());
         }else if(q.getType() == Query.DEEP_DREAM){
             imagePresenter.startLoad();
-            q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.dogs_playing_poker_dim));
+            q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.deep_dream_dim));
             recyclerPresenter.update();
             queryHelper.deapDream(imagePresenter.getMainImg());
         } else if (q.getType() == Query.TO_GRAYSCALE) {
             imagePresenter.startLoad();
-            //q.setImg();
             recyclerPresenter.update();
+            q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.grayscale_dim));
             imagePresenter.setImage(OflineQuery.getInstance().toGrayscale(BitmapFactory.decodeFile(imagePresenter.getMainImg().getAbsolutePath())));
             imagePresenter.finishLoad();
         } else if (q.getType() == Query.TO_INVERT) {
             imagePresenter.startLoad();
-            //q.setImg();
             recyclerPresenter.update();
+            q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.invert_dim));
             imagePresenter.setImage(OflineQuery.getInstance().toInvert(BitmapFactory.decodeFile(imagePresenter.getMainImg().getAbsolutePath())));
             imagePresenter.finishLoad();
         } else if (q.getType() == Query.RETRO) {
             imagePresenter.startLoad();
-            //q.setImg();
             recyclerPresenter.update();
+            q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.vintage_dim));
             imagePresenter.setImage(OflineQuery.getInstance().retro(BitmapFactory.decodeFile(imagePresenter.getMainImg().getAbsolutePath())));
             imagePresenter.finishLoad();
         } else if (q.getType() == Query.UP_COLOR) {
             imagePresenter.startLoad();
-            //q.setImg();
             recyclerPresenter.update();
+            q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.up_color_dim));
             imagePresenter.setImage(OflineQuery.getInstance().upColor(BitmapFactory.decodeFile(imagePresenter.getMainImg().getAbsolutePath())));
             imagePresenter.finishLoad();
         } else {

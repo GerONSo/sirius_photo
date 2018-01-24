@@ -38,6 +38,10 @@ public class RecyclerViewPresenter extends MvpPresenter<IRecyclerView> {
         list.add(getBitmap(R.drawable.wave, "Wave", Query.WAVE));
         list.add(getBitmap(R.drawable.rain_princess, "Rain Princess", Query.RAIN_PRINCESS));
         list.add(getBitmap(R.drawable.the_scream, "The Scream", Query.THE_SCREAM));
+        list.add(getBitmap(R.drawable.grayscale,"Grayscale",Query.TO_GRAYSCALE));
+        list.add(getBitmap(R.drawable.invert,"Invert",Query.TO_INVERT));
+        list.add(getBitmap(R.drawable.up_color,"Enhance colors",Query.UP_COLOR));
+        list.add(getBitmap(R.drawable.vintage,"Vintage",Query.RETRO));
         list.add(getBitmap(R.drawable.the_starry_night_locked,"Starry Night",Query.DEVELOPMENT));
         list.add(getBitmap(R.drawable.water_lilies_locked,"Water Lilies",Query.DEVELOPMENT));
         list.add(getBitmap(R.drawable.dogs_playing_poker_locked,"Poker Dogs",Query.DEVELOPMENT));

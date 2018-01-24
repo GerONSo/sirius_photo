@@ -47,7 +47,7 @@ public class MyTarget implements Target {
                 file.createNewFile();
             
             FileOutputStream ostream = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 95, ostream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
             ostream.flush();
             ostream.close();
             call.onLoad(file);
