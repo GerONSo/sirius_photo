@@ -121,9 +121,9 @@ public class MainPresenter extends MvpPresenter<IMainView> {
             queryHelper.laMuse(imagePresenter.getMainImg());
         } else if (q.getType() == Query.WAVE) {
             imagePresenter.startLoad();
-            q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.water_lilies_dim));
+            q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.wave_dim));
             recyclerPresenter.update();
-            queryHelper.wawe(imagePresenter.getMainImg());
+            queryHelper.wave(imagePresenter.getMainImg());
         }else if(q.getType() == Query.RAIN_PRINCESS){
             imagePresenter.startLoad();
             q.setImg(BitmapFactory.decodeResource(recyclerPresenter.getResources(), R.drawable.rain_princess_dim));
